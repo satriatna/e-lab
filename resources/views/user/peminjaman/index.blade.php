@@ -154,6 +154,10 @@
                         <label for="instansi">Instansi</label>
                         <input type="text" disabled class="form-control" id="instansi" name="instansi" value="{{Auth::guard(session()->get('role'))->user()->instansi}}" required>
                     </div>
+                    <div class="form-group">
+                        <label for="guru_pembimbing">Guru Pembimbing</label>
+                        <input type="text" disabled class="form-control" id="guru_pembimbing" name="guru_pembimbing" value="{{Auth::guard(session()->get('role'))->user()->guru_pembimbing}}" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

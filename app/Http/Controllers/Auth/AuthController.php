@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -60,5 +61,19 @@ class AuthController extends Controller
         session()->flush();
         return redirect('/')
             ->with('status', 'Anda telah keluar!');
+    }
+
+    public function registerForm()
+    {
+        return view('auth.register');
+    }
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'unique:user',
+        ]);
+        $request['password'] = bcrypt($request->password);
+        User::create($request->all());
+        return redirect(route('login'))->with('success','Pendaftaran berhasil');
     }
 }

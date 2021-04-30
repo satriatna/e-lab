@@ -92,7 +92,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
-              <a href="#" id="kembalikan">Kembalikan Alat</a>
+              <a href="#" id="kembalikan">Kembalikan Alat</a> <br>
             </div>
             <div class="card-body hilang">
               <table class="table">
@@ -124,6 +124,9 @@
                   <input type="hidden" name="transaksi_id" value="{{$transaksi->id}}">
                   <button class="btn btn-primary">Simpan</button>
                 </form>
+            </div>
+            <div class="card-footer">
+              <span class="text-danger">Apabila alat yang dipinjam hilang atau rusak, maka harus di ganti dengan yang baru.</span>
             </div>
           </div>
         </div>

@@ -34,6 +34,7 @@
 			<div class="form-left">
 				<img src="{{url('images/logo/logo.jpeg')}}" style="height:500px;width:110%;">
 			</div>
+			
 			<form class="form-detail" action="{{route('login')}}" method="post" id="myform">
                 @csrf
 				<h2>Silahkan Masuk</h2>
