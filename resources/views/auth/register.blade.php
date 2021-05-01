@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Halaman Login</title>
+	<title>Halaman Pendaftaran</title>
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<!-- Font-->
@@ -57,7 +57,8 @@
                 <br>	
 			
 				<div class="form-row">
-					<input type="submit" class="input-text" value="Masuk" style="background: #4254f5;color:white;cursor:pointer;width:99%;">
+					<input type="submit" class="input-text" value="Daftar" style="background: #4254f5;color:white;cursor:pointer;width:99%;">
+					<a href="{{route('login')}}">Masuk</a>
 				</div>
 			</form>
 		</div>

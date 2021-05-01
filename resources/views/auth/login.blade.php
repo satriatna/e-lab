@@ -56,6 +56,7 @@
 			
 				<div class="form-row">
 					<input type="submit" class="input-text" value="Masuk" style="background: #4254f5;color:white;cursor:pointer;width:99%;">
+					<a href="{{route('register')}}">Daftar</a>
 				</div>
 			</form>
 		</div>
