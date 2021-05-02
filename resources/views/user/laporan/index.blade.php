@@ -62,7 +62,7 @@ table {
             <div class="card-header">
                 Pengelola LAB <hr>
                 <br>
-                {{$laporan->first()->admin->nama}}
+                {{$laporan->first()->admin->nama ?? 'Admin'}}
 
             </div>
         </div>
