@@ -101,8 +101,8 @@
                 <div class="form-group">
                   <label for="status">Status</label>
                   <select name="status" id="status" class="custom-select" required>
-                    <option value="return_approved">Terima</option>
-                    <option value="return_dismiss">Tolak</option>
+                    <option value="loan_approved">Terima</option>
+                    <option value="loan_dismiss">Tolak</option>
                   </select>
                 </div>
                 <div class="form-group">

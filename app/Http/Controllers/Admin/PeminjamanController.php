@@ -68,9 +68,9 @@ class PeminjamanController extends Controller
         $ke = $request->ke;
         $tipe = $request->tipe;
         if($request->tipe == 'pinjam'){
-            $laporan = Peminjaman::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke)->get();
+            $laporan = Peminjaman::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke);
         }else{
-            $laporan = Pengembalian::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke)->get();
+            $laporan = Pengembalian::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke);
         }
         // return view('user.laporan.index', compact('laporan','dari','ke','tipe'));
     	$pdf = PDF::loadview('user.laporan.index',compact('laporan','dari','ke','tipe'));

@@ -10,9 +10,16 @@
     Sampai Tanggal : {{date("d-m-Y",strtotime($ke))}}
     </div>
 </div>
+<style>
+
+table {
+  border: 1px solid black !important;
+  border-collapse: collapse;
+}
+</style>
 <div class="card">
     <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered" border="5px solid black">
             <tr>
                 <th colspan="5">Data Yang {{$tipe == 'pinjam' ? 'Dipinjam' : 'Dikembalikan'}}</th>
             </tr>
@@ -26,7 +33,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($laporan as $lap)
+            @forelse($laporan->get() as $lap)
             <tr>
                 <td>{{$lap->transaksi->user->nama}} </td>
                 <td>{{$lap->alat->nama}} </td>
@@ -44,6 +51,24 @@
             </tbody>
         </table>
     </div>
+</div>
+<hr>
+
+<div class="container-fluid">
+
+<div class="row">
+    <div class="col-4">
+        <div class="card mt-5">
+            <div class="card-header">
+                Pengelola LAB <hr>
+                <br>
+                {{$laporan->first()->admin->nama}}
+
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

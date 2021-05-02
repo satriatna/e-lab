@@ -83,11 +83,7 @@
                                         <i class="fas fa-eye">
                                         </i>
                                     </a>
-                                    <form action="{{route('user.peminjaman.delete', $transaksi->id)}}" id="delete" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                        <a href="{{route('user.peminjaman.delete', $transaksi->id)}}" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -155,8 +151,8 @@
                         <input type="text" disabled class="form-control" id="instansi" name="instansi" value="{{Auth::guard(session()->get('role'))->user()->instansi}}" required>
                     </div>
                     <div class="form-group">
-                        <label for="guru_pembimbing">Guru Pembimbing</label>
-                        <input type="text" disabled class="form-control" id="guru_pembimbing" name="guru_pembimbing" value="{{Auth::guard(session()->get('role'))->user()->guru_pembimbing}}" required>
+                        <label for="nama">Guru Pembimbing</label>
+                        <input type="text" disabled class="form-control" id="nama" name="nama" value="{{Auth::guard(session()->get('role'))->user()->nama}}" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -194,7 +190,7 @@
                         <select name="tipe" id="tipe" class="custom-select" required>
                             <option value=""> ~ Pilih ~</option>
                             <option value="pinjam"> Peminjaman </option>
-                            <option value="keluar"> Pengeluaran </option>
+                            <option value="keluar"> Pengembalian </option>
                         </select>
                     </div>
                 </div>

@@ -189,7 +189,7 @@
                         <select name="tipe" id="tipe" class="custom-select" required>
                             <option value=""> ~ Pilih ~</option>
                             <option value="pinjam"> Peminjaman </option>
-                            <option value="keluar"> Pengeluaran </option>
+                            <option value="keluar"> Pengembalian </option>
                         </select>
                     </div>
                 </div>

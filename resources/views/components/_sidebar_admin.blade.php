@@ -6,7 +6,7 @@
         <img src="{{url('images/logo/logo.jpeg')}}" style="height: 40px;width:40px;" class="img-circle elevation-2" alt="User Image">
     </div>
     <div class="info">
-        <a href="#" class="d-block">{{Auth::guard(session()->get('role'))->user()->nama}}</a>
+        <a href="#" class="d-block">{{Auth::guard(session()->get('role'))->user()->username}}</a>
     </div>
     </div>
 
