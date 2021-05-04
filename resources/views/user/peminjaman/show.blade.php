@@ -60,18 +60,12 @@
                   <tr>
                     <td colspan="3">Status</td>
                     <td>
-                      @if($adminPinjam->first()->transaksi->status == 'loan_pending')
+                      @if($adminPinjam->first()->transaksi->status_pinjam == 'loan_pending')
                         Peminjaman Tertunda
-                      @elseif($adminPinjam->first()->transaksi->status == 'loan_dismiss')
+                      @elseif($adminPinjam->first()->transaksi->status_pinjam == 'loan_dismiss')
                         Peminjaman Ditolak
-                      @elseif($adminPinjam->first()->transaksi->status == 'loan_approved')
+                      @elseif($adminPinjam->first()->transaksi->status_pinjam == 'loan_approved')
                         Peminjaman Diterima
-                      @elseif($adminPinjam->first()->transaksi->status == 'return_pending')
-                        Pengembalian Tertunda
-                      @elseif($adminPinjam->first()->transaksi->status == 'return_approved')
-                        Pengembalian Diterima
-                      @elseif($adminPinjam->first()->transaksi->status == 'return_dismiss')
-                        Pengembalian Ditolak
                       @endif
                     </td>
                   </tr>
@@ -82,6 +76,9 @@
                 </tfoot>
 
               </table>
+            </div>
+            <div class="card-footer">
+              <span class="text-danger">Harap Membayar biaya perawatan alat sebesar Rp 25.000.</span>
             </div>
             </form>
             <!-- /.card-body -->
@@ -162,13 +159,7 @@
                     <td colspan="3">Status</td>
                     <td>
                    
-                      @if($pengembalian->first()->transaksi->status == 'loan_pending')
-                        Peminjaman Tertunda
-                      @elseif($pengembalian->first()->transaksi->status == 'loan_dismiss')
-                        Peminjaman Ditolak
-                      @elseif($pengembalian->first()->transaksi->status == 'loan_approved')
-                        Peminjaman Diterima
-                      @elseif($pengembalian->first()->transaksi->status == 'return_pending')
+                      @if($pengembalian->first()->transaksi->status == 'return_pending')
                         Pengembalian Tertunda
                       @elseif($pengembalian->first()->transaksi->status == 'return_approved')
                         Pengembalian Diterima

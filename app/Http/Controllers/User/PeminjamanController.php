@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alat;
@@ -33,7 +33,7 @@ class PeminjamanController extends Controller
 
         $transaksi = Transaksi::insertGetId([
             'user_id' => $request->user_id,
-            'status' => 'loan_pending',
+            'status_pinjam' => 'loan_pending',
             'created_at' => $request->created_at,
             'updated_at' => $request->created_at,
         ]);

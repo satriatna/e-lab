@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\ReportInController;
 use App\Http\Controllers\Admin\ReportOutController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\PeminjamanController as UserPeminjamanController;
+use App\Http\Controllers\User\PengembalianController as UserPengembalianController;
 use App\Http\Controllers\User\UserController as UserUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -99,15 +101,15 @@ Route::prefix('user')->name('user.')->group(function(){
         Route::get('', [UserUserController::class,'index'])->name('index');
     });
     Route::prefix('peminjaman')->name('peminjaman.')->group(function(){
-        Route::get('', [PeminjamanController::class, 'index'])->name('index');
-        Route::get('show/{id}', [PeminjamanController::class, 'show'])->name('show');
-        Route::get('delete/{id}', [PeminjamanController::class, 'delete'])->name('delete');
-        Route::post('create', [PeminjamanController::class, 'create'])->name('create');
-        Route::post('pdf', [PeminjamanController::class, 'pdf'])->name('pdf');
+        Route::get('', [UserPeminjamanController::class, 'index'])->name('index');
+        Route::get('show/{id}', [UserPeminjamanController::class, 'show'])->name('show');
+        Route::get('delete/{id}', [UserPeminjamanController::class, 'delete'])->name('delete');
+        Route::post('create', [UserPeminjamanController::class, 'create'])->name('create');
+        Route::post('pdf', [UserPeminjamanController::class, 'pdf'])->name('pdf');
     });
     Route::prefix('pengembalian')->name('pengembalian.')->group(function(){
-        Route::get('', [PengembalianController::class, 'index'])->name('index');
-        Route::post('', [PengembalianController::class, 'store'])->name('store');
+        Route::get('', [UserPengembalianController::class, 'index'])->name('index');
+        Route::post('', [UserPengembalianController::class, 'store'])->name('store');
     });
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -30,7 +30,7 @@ class AdminPeminjamanController extends Controller
     public function konfirmasi(Request $request)
     {   
         $transaksi = Transaksi::find($request->transaksi_id);
-        $transaksi->update(['status' => $request->status]);
+        $transaksi->update(['status_pinjam' => $request->status]);
         $peminjaman = Peminjaman::where('transaksi_id', $request->transaksi_id);
         if(count($peminjaman->get()) > 0 ){
             $peminjaman->update([

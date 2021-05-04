@@ -63,18 +63,12 @@
                             <td>{{++$key}}</td>
                             <td>{{$transaksi->peminjaman()->count()}}</td>
                             <td>
-                            @if($transaksi->status == 'loan_pending')
+                            @if($transaksi->status_pinjam == 'loan_pending')
                                 Peminjaman Tertunda
-                            @elseif($transaksi->status == 'loan_dismiss')
+                            @elseif($transaksi->status_pinjam == 'loan_dismiss')
                                 Peminjaman Ditolak
-                            @elseif($transaksi->status == 'loan_approved')
+                            @elseif($transaksi->status_pinjam == 'loan_approved')
                                 Peminjaman Diterima
-                            @elseif($transaksi->status == 'return_pending')
-                                Pengembalian Tertunda
-                            @elseif($transaksi->status == 'return_approved')
-                                Pengembalian Diterima
-                            @elseif($transaksi->status == 'return_dismiss')
-                                Pengembalian Ditolak
                             @endif
                             </td>
                             <td class="project-actions text-right">

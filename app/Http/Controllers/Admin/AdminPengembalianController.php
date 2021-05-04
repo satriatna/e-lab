@@ -22,11 +22,4 @@ class AdminPengembalianController extends Controller
         }
         return redirect()->back()->with('success','Pengembalian berhasil dikonfirmasi');
     }
-    public function pdf(Request $request)
-    {
-        $transaksi = Transaksi::all();
-        return view('admin.laporan.index', compact('transaksi'));
-    	// $pdf = PDF::loadview('admin.laporan.index',['transaksi' => $transaksi]);
-        // return $pdf->stream();
-    }
 }

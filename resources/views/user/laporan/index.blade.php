@@ -25,7 +25,7 @@ table {
             </tr>
             <thead>
             <tr>
-                <th>Nama User</th>
+                <th>Guru Pembimbing</th>
                 <th>Nama Alat</th>
                 <th>Jumlah</th>
                 <th>Keterangan</th>
@@ -52,11 +52,10 @@ table {
         </table>
     </div>
 </div>
-<hr>
 
 <div class="container-fluid">
 
-<div class="row">
+<div class="row" style="float: right;">
     <div class="col-4">
         <div class="card mt-5">
             <div class="card-header">
@@ -68,6 +67,9 @@ table {
         </div>
     </div>
 </div>
+<p style="margin-top: 160px !important;">
+<b>Keterangan</b> : Harap Membayar biaya perawatan alat sebesar Rp 25.000
+</p>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

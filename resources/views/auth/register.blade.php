@@ -22,7 +22,10 @@
 				<div class="card-body">		
 					<form class="form-detail" action="{{route('register')}}" method="post" id="myform" style="width: 100%;">
 						@csrf
-						<h2>Form Pendaftaran</h2>
+						<div class="form-row">
+							<label for="nip">NIP :</label>
+							<input type="text" name="nip" id="nip" class="form-control" required>
+						</div>
 						<div class="form-row">
 							<label for="nama">Guru Pembimbing :</label>
 							<input type="text" name="nama" id="nama" class="form-control" required>
@@ -34,6 +37,10 @@
 						<div class="form-row">
 							<label for="guru_pembimbing">No HP :</label>
 							<input type="number" name="guru_pembimbing" id="guru_pembimbing" class="form-control" required>
+						</div>
+						<div class="form-row">
+							<label for="alamat">Alamat :</label>
+							<textarea name="alamat" id="alamat" class="form-control" required></textarea>
 						</div>
 						<div class="form-row">
 							<label for="username">Username :</label>
