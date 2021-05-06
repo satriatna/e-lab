@@ -30,6 +30,10 @@
                 <input type="hidden" name="id" value="{{$user->id}}">
                 <div class="card-body">
                 <div class="form-group">
+                    <label for="nip">NIP</label>
+                    <input type="number" id="nip" name="nip" value="{{$user->nip}}" class="form-control">
+                </div>
+                <div class="form-group">
                     <label for="nama">Nama</label>
                     <input type="text" id="nama" name="nama" value="{{$user->nama}}" class="form-control">
                 </div>
@@ -44,6 +48,10 @@
                 <div class="form-group">
                     <label for="guru_pembimbing">Guru Pembimbing </label>
                     <input type="text" id="guru_pembimbing" name="guru_pembimbing" value="{{$user->guru_pembimbing}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat </label>
+                    <textare id="alamat" name="alamat" class="form-control">{{$user->alamat}}</textarea>
                 </div>
             </form>
             <!-- /.card-body -->

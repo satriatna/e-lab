@@ -62,7 +62,6 @@ table {
                 Pengelola LAB <hr>
                 <br>
                 {{$laporan->first()->admin->nama ?? 'Admin'}}
-
             </div>
         </div>
     </div>

@@ -30,16 +30,12 @@
                 <input type="hidden" name="id" value="{{$user->id}}">
                 <div class="card-body">
                 <div class="form-group">
+                    <label for="nip">NIP</label>
+                    <input type="number" id="nip" name="nip" value="{{$user->nip}}" class="form-control">
+                </div>
+                <div class="form-group">
                     <label for="nama">Nama</label>
                     <input type="text" id="nama" name="nama" value="{{$user->nama}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" value="{{$user->username}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password <small>*optional</small></label>
-                    <input type="password" id="password" name="password" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="instansi">Instansi </label>
@@ -49,6 +45,20 @@
                     <label for="guru_pembimbing">Guru Pembimbing </label>
                     <input type="text" id="guru_pembimbing" name="guru_pembimbing" value="{{$user->guru_pembimbing}}" class="form-control">
                 </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat </label>
+                    <textarea type="text" id="alamat" name="alamat" class="form-control">{{$user->alamat}}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="{{$user->username}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <small>*optional</small></label>
+                    <input type="password" id="password" name="password" value="" class="form-control">
+                </div>
+                
                 <div class="form-group">
                     <input type="submit" value="Simpan" class="btn btn-primary">
                 </div>

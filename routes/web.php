@@ -83,7 +83,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::prefix('peminjaman')->name('peminjaman.')->group(function(){
         Route::get('', [AdminPeminjamanController::class, 'index'])->name('index');
         Route::get('show/{id}', [AdminPeminjamanController::class, 'show'])->name('show');
-        Route::get('delete/{id}', [AdminPeminjamanController::class, 'delete'])->name('delete');
+        Route::delete('delete/{id}', [AdminPeminjamanController::class, 'delete'])->name('delete');
         Route::post('konfirmasi', [AdminPeminjamanController::class, 'konfirmasi'])->name('konfirmasi');
     });
     Route::prefix('pengembalian')->name('pengembalian.')->group(function(){

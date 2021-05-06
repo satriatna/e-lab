@@ -51,7 +51,10 @@
                             Jumlah Alat Dipinjam
                         </th>
                         <th style="width: 20%">
-                            Status
+                            Status Peminjaman
+                        </th>
+                        <th style="width: 20%">
+                            Status Pengembalian
                         </th>
                         <th style="width: 20%">
                         </th>
@@ -70,6 +73,16 @@
                             @elseif($transaksi->status_pinjam == 'loan_approved')
                                 Peminjaman Diterima
                             @endif
+                            </td>
+                            
+                            <td>
+                                @if($transaksi->status == 'return_pending')
+                                    Pengembalian Tertunda
+                                @elseif($transaksi->status == 'return_dismiss')
+                                    Pengembalian Ditolak
+                                @elseif($transaksi->status == 'return_approved')
+                                    Pengembalian Diterima
+                                @endif
                             </td>
                             <td class="project-actions text-right">
                                 <div class="d-flex d-inline">
@@ -106,12 +119,12 @@
                 <div class="modal-body">
                     <div class="field_wrapper">
                         <div class="form-group">
-                            <button id="btnAdd">
+                            <a href="#" class="btn btn-secondary" id="btnAdd">
                             Add More
-                            </button>
-                            <button id="btnDel">
+                            </a href="#" class="btn btn-secondary">
+                            <a href="#" class="btn btn-secondary" id="btnDel">
                             Delete
-                            </button>
+                            </a href="#" class="btn btn-secondary">
                             <div id="testingDiv1" class="clonedInput">
                                 <div class="row">
                                     <div class="col-4">
