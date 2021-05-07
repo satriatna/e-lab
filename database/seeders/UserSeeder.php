@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'password'=>bcrypt('user'),
             'nama'=>'user',
             'instansi'=>'SM',
-            'guru_pembimbing'=>'Edi',
+            'guru_pembimbing'=>'0857',
         ]);
     }
 }

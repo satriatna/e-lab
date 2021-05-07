@@ -34,7 +34,7 @@
                     <input type="number" id="nip" name="nip" value="{{$user->nip}}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="nama">Nama</label>
+                    <label for="nama">Guru Pembimbing</label>
                     <input type="text" id="nama" name="nama" value="{{$user->nama}}" class="form-control">
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
                     <input type="text" id="instansi" name="instansi" value="{{$user->instansi}}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="guru_pembimbing">Guru Pembimbing </label>
+                    <label for="guru_pembimbing">No HP </label>
                     <input type="text" id="guru_pembimbing" name="guru_pembimbing" value="{{$user->guru_pembimbing}}" class="form-control">
                 </div>
                 <div class="form-group">

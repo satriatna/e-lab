@@ -47,13 +47,13 @@
                             #
                         </th>
                         <th style="width: 20%">
-                            Nama
+                            Guru Pembimbing
                         </th>
                         <th style="width: 20%">
                             Instansi
                         </th>
                         <th style="width: 20%">
-                            Guru Pembimbing
+                            No HP
                         </th>
                         <th style="width: 20%">
                         </th>

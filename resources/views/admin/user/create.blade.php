@@ -28,24 +28,33 @@
                 @csrf
                 <div class="card-body">
                 <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" id="nama" name="nama" class="form-control">
+                    <label for="nip">NIP</label>
+                    <input type="number" id="nip" name="nip" value="" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" class="form-control">
+                    <label for="nama">Guru Pembimbing</label>
+                    <input type="text" id="nama" name="nama" value="" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" value="" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="instansi">Instansi</label>
+                    <label for="instansi">Instansi </label>
                     <input type="text" id="instansi" name="instansi" value="" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="guru_pembimbing">Guru Pembimbing</label>
+                    <label for="guru_pembimbing">No HP </label>
                     <input type="text" id="guru_pembimbing" name="guru_pembimbing" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat </label>
+                    <textarea type="text" id="alamat" name="alamat" class="form-control"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <small>*optional</small></label>
+                    <input type="password" id="password" name="password" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Simpan" class="btn btn-primary">
