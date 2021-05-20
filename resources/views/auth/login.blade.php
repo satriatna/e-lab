@@ -37,6 +37,11 @@
 			
 			<form class="form-detail" action="{{route('login')}}" method="post" id="myform">
                 @csrf
+				@if(session()->has('success'))
+				<div class="form-row">
+					<div class="alert alert-success" style="background: #3af246;color:white;cursor:pointer;width:93%;padding:10px;"><b>Pendaftaran Berhasil</b></div>
+				</div>
+				@endif
 				<h2>Silahkan Masuk</h2>
 				<div class="form-row">
 					<label for="username">Username :</label>

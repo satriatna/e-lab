@@ -178,7 +178,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td colspan="3">Guru</td>
+                    <td colspan="3">No HP</td>
                     <td>
                       {{ $pengembalian->first()->transaksi->user->guru_pembimbing  }}
                     </td>
