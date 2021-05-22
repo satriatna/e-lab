@@ -1,73 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Halaman Login</title>
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- Font-->
-	<link rel="stylesheet" type="text/css" href="css/roboto-font.css">
-	<link rel="stylesheet" type="text/css" href="fonts/line-awesome/css/line-awesome.min.css">
-	<!-- Jquery -->
-	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
-	<!-- Main Style Css -->
-    <link rel="stylesheet" href="{{url('template/login/css/style.css')}}"/>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="{{url('css/app.css')}}">
 </head>
-<!-- <style>
-.select {
-  width: 100%;
-  display: block;
-  border: 1px grey var(--select-border);
-  border-radius: 0.25em;
-  padding: 0.25em 0.5em;
-  font-size: 1.25rem;
-  cursor: pointer;
-  border-style: solid;
-  line-height: 1.1;
-  background-color: #fff;
-  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+<style>
+.btn-biru{
+	background: #4254F5;
+	color: white;
 }
-</style> -->
-<body class="form-v2">
-	<div class="page-content">
-		<div class="form-v2-content">
-			<div class="form-left">
-				<img src="{{url('images/logo/logo.jpeg')}}" style="height:500px;width:110%;">
+</style>
+<body style="background: #9BC5FD;">
+	<div class="container">
+		<div class="row justify-content-center mt-5">
+			<center><h1>Laboratorium Kimia SMA N 1 GADING REJO </h1></center>
+			<div class="col-10 mt-4">
+				<div class="card">
+						<div class="row">
+							<div class="col-4">				
+								<img src="{{url('images/logo/logo.jpeg')}}" style="height:500px;width:110%;">
+							</div>
+							<div class="col-8">
+								<div class="card">
+									<div class="card-header bg-white">
+										<h4 class="mt-2"><b class="text-bold">Silahkan Masuk</b></h4>
+									</div>
+									<div class="card-body">
+										<form action="{{route('login')}}" method="post" id="myform">
+											@csrf
+											<div class="form-group">
+												<label for="username">Username :</label>
+												<input type="text" name="username" class="form-control" required>
+											</div>
+											<div class="form-group">
+												<label for="password">Password :</label>
+												<input type="password" name="password" class="form-control" required>
+											</div>
+											<div class="form-group">
+												<label for="role">Masuk Sebagai :</label>
+												<select name="role" id="role" class="custom-select" required>
+													<option value="admin">Admin</option>
+													<option value="user">User</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-biru btn-block">Masuk</button>
+											</div>
+										</form>
+									</div>
+									<div class="card-footer">
+										<div class="form-group mt-3">
+											<a href="{{route('register')}}">Daftar</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>				
+				</div>
 			</div>
-			
-			<form class="form-detail" action="{{route('login')}}" method="post" id="myform">
-                @csrf
-				@if(session()->has('success'))
-				<div class="form-row">
-					<div class="alert alert-success" style="background: #3af246;color:white;cursor:pointer;width:93%;padding:10px;"><b>Pendaftaran Berhasil</b></div>
-				</div>
-				@endif
-				<h2>Silahkan Masuk</h2>
-				<div class="form-row">
-					<label for="username">Username :</label>
-					<input type="username" name="username" id="username" class="input-text" required>
-				</div>
-				<div class="form-row">
-					<label for="password">Password :</label>
-					<input type="password" name="password" id="password" class="input-text" required>
-				</div>
-				<div class="form-row">
-					<label for="role">Masuk Sebagai :</label><br>
-					<select name="role" id="role" class="select" required>
-						<option value="admin">Admin</option>
-						<option value="user">User</option>
-					</select>
-				</div><br>	
-			
-				<div class="form-row">
-					<input type="submit" class="input-text" value="Masuk" style="background: #4254f5;color:white;cursor:pointer;width:99%;">
-					<a href="{{route('register')}}">Daftar</a>
-				</div>
-			</form>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script>
-	</script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 </html>
+<script src="{{url('js/app.js')}}"></script>

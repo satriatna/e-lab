@@ -25,7 +25,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Aplikasi Laboratorium</a>
+        <a href="#" class="nav-link">Laboratorium Kimia</a>
       </li>
     </ul>
   </nav>
@@ -35,7 +35,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <span class="ml-3 brand-text font-weight-light">Aplikasi Laboratorium</span>
+      <span class="ml-3 brand-text font-weight-light">Laboratorium Kimia</span>
     </a>
 
     <!-- Sidebar -->
