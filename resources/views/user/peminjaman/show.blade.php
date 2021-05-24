@@ -189,6 +189,12 @@
                       {{ $pengembalian->first()->transaksi->user->instansi  }}
                     </td>
                   </tr>
+                  <tr>
+                    <td colspan="3">Guru Pembimbing</td>
+                    <td>
+                      {{ $pengembalian->first()->transaksi->user->nama  }}
+                    </td>
+                  </tr>
                 </tfoot>
 
               </table>
