@@ -14,7 +14,7 @@ class AdminPeminjamanController extends Controller
 {
     public function index(Request $request)
     {
-        $transaksi = Transaksi::all();
+        $transaksi = Transaksi::where('bukti_bayar','!=',null)->get();
         $alat = Alat::all();
         return view('admin.peminjaman.index',compact('transaksi','alat'));
     }

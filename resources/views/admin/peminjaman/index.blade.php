@@ -56,6 +56,9 @@
                             Status Pengembalian
                         </th>
                         <th style="width: 20%">
+                            Bukti Pembayaran
+                        </th>
+                        <th style="width: 20%">
                         </th>
                     </tr>
                 </thead>
@@ -82,6 +85,9 @@
                                 @elseif($transaksi->status == 'return_approved')
                                     Pengembalian Diterima
                                 @endif
+                            </td>
+                            <td>
+                                <a target="_blank" href="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}"><img src="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}" style="height:70px;width:70px;"></a>
                             </td>
                             <td class="project-actions text-right">
                                 <div class="d-flex d-inline">

@@ -30,21 +30,36 @@ class PeminjamanController extends Controller
                 }
             }
         }
-
-        $transaksi = Transaksi::insertGetId([
-            'user_id' => $request->user_id,
-            'status_pinjam' => 'loan_pending',
-            'created_at' => $request->created_at,
-            'updated_at' => $request->created_at,
-        ]);
-        foreach($alat as $key => $al)
-        {
-            Peminjaman::create([
-                'transaksi_id' => $transaksi,
-                'alat_id' => $al->id,
-                'jumlah' => $request->jumlah[$key],
-                'keterangan' => $request->keterangan[$key],
+        $jumlah = !$request->jumlah[0];
+        $keterangan = !$request->keterangan[0];
+        
+        if($jumlah == true && $keterangan == true){
+            return redirect()->back()->with('alert','kolom jumlah dan keterangan harus diisi');
+        }
+        if($jumlah == false && $keterangan == false){
+                $buktiBayar = $request->file('bukti_bayar');
+                $size = $buktiBayar->getSize();
+                $namePhoto = time() . "_" . $buktiBayar->getClientOriginalName();
+                $path = 'images/bukti-pembayaran';
+                $buktiBayar->move($path, $namePhoto);
+            $transaksi = Transaksi::insertGetId([
+                'user_id' => $request->user_id,
+                'status_pinjam' => 'loan_pending',
+                'created_at' => $request->created_at,
+                'updated_at' => $request->created_at,
+                'bukti_bayar' => $namePhoto,
             ]);
+            foreach($alat as $key => $al)
+            {
+                if($request->jumlah[$key] != null){
+                    Peminjaman::create([
+                        'transaksi_id' => $transaksi,
+                        'alat_id' => $al->id,
+                        'jumlah' => $request->jumlah[$key],
+                        'keterangan' => $request->keterangan[$key],
+                    ]);
+                }
+            }
         }
         return redirect()->back()->with('success','Berhasil meminjam alat');
     }
@@ -73,7 +88,7 @@ class PeminjamanController extends Controller
             $laporan = Pengembalian::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke);
         }
         // return view('user.laporan.index', compact('laporan','dari','ke','tipe'));
-    	$pdf = PDF::loadview('user.laporan.index',compact('laporan','dari','ke','tipe'));
+    	$pdf = PDF::loadview('user.laporan.index',compact('laporan','dari','ke','tipe'))->setPaper('a4', 'landscape');;
         return $pdf->stream();
     }
 }

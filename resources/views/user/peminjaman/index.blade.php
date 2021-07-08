@@ -14,16 +14,19 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
     </div><!-- /.container-fluid -->
-    @if(session()->get('alert'))
-    <div class="alert alert-danger alert-dismissible show fade">
-        <div class="alert-body">
-        <button class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-        {{session()->get('alert')}}
-        </div>
-    </div>
-    @endif
+    
+	@if ($message = Session::get('alert'))
+	  <div class="alert alert-danger alert-block">
+		<button type="button" class="close" data-dismiss="alert">×</button>	
+		  <strong>{{ $message }}</strong>
+	  </div>
+	@endif
+	@if ($message = Session::get('success'))
+	  <div class="alert alert-success alert-block">
+		<button type="button" class="close" data-dismiss="alert">×</button>	
+		  <strong>{{ $message }}</strong>
+	  </div>
+	@endif
     
     <section class="content">
         <!-- Default box -->
@@ -107,7 +110,7 @@
 <div class="modal fade bd-example-modal-lg" id="pinjam" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="{{ route('user.peminjaman.create') }}" method="POST" id="form">
+            <form action="{{ route('user.peminjaman.create') }}" method="POST" id="form" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" value="{{Auth::guard(session()->get('role'))->user()->id}}" name="user_id">
                 <div class="modal-header">
@@ -161,8 +164,18 @@
                         <label for="nama">Guru Pembimbing</label>
                         <input type="text" disabled class="form-control" id="nama" name="nama" value="{{Auth::guard(session()->get('role'))->user()->nama}}" required>
                     </div>
+                    <div class="form-group">
+                        <label for="bukti_bayar">Bukti Pembayaran</label> <br>
+                        <input type="file" id="bukti_bayar" name="bukti_bayar" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
+                <span class="text-bold">
+                Silahkan membayar biaya peralatan alat sebesar Rp 25.000. <br> 
+                Pembayaran dapat di lakukan melalui
+                Rek BRI 0409-01-028554-50-0
+                Atau Dana 081338402976
+                </span>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

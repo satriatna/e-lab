@@ -77,9 +77,9 @@
 
               </table>
             </div>
-            <div class="card-footer">
+            <!-- <div class="card-footer">
               <span class="text-danger">Harap Membayar biaya perawatan alat sebesar Rp 25.000.</span>
-            </div>
+            </div> -->
             </form>
             <!-- /.card-body -->
           </div>

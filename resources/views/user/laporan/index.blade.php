@@ -29,16 +29,24 @@ table {
                 <th>Nama Alat</th>
                 <th>Jumlah</th>
                 <th>Keterangan</th>
+                <th>Bukti Pembayaran</th>
                 <th>Tanggal</th>
             </tr>
             </thead>
             <tbody>
-            @forelse($laporan->get() as $lap)
+            @forelse($laporan->get() as $lap)`
             <tr>
                 <td>{{$lap->transaksi->user->nama}} </td>
                 <td>{{$lap->alat->nama}} </td>
                 <td>{{$lap->jumlah}} </td>
                 <td>{{$lap->keterangan}} </td>
+                @php
+                $public = 'images/bukti/'. $lap->transaksi->bukti_bayar;
+                $image = base64_encode(file_get_conten  ts(public_path($public)));
+                @endphp
+                <td>
+                    <img src="data:image/png;base64,{{ $image }}" style="height:70px;width:70px;">
+                </td>
                 <td>
                     {{date('l / m-d-Y', strtotime($lap->created_at))}}
                 </td>
