@@ -62,7 +62,7 @@
                     <td>
                      
                       @if($peminjaman->first()->transaksi->status_pinjam == 'loan_pending')
-                        Peminjaman Tertunda
+                        Peminjaman Diproses
                       @elseif($peminjaman->first()->transaksi->status_pinjam == 'loan_dismiss')
                         Peminjaman Ditolak
                       @elseif($peminjaman->first()->transaksi->status_pinjam == 'loan_approved')
@@ -149,7 +149,7 @@
                     <td>
                    
                       @if($pengembalian->first()->transaksi->status == 'return_pending')
-                        Pengembalian Tertunda
+                        Pengembalian Diproses
                       @elseif($pengembalian->first()->transaksi->status == 'return_approved')
                         Pengembalian Diterima
                       @elseif($pengembalian->first()->transaksi->status == 'return_dismiss')

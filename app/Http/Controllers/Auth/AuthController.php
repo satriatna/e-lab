@@ -72,6 +72,7 @@ class AuthController extends Controller
         $this->validate($request, [
             'username' => 'unique:user',
             'nip' => 'unique:user',
+            'password' => 'min:8',
         ]);
         $request['password'] = bcrypt($request->password);
         User::create($request->all());

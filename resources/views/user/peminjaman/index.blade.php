@@ -70,7 +70,7 @@
                             <td>{{$transaksi->peminjaman()->count()}}</td>
                             <td>
                             @if($transaksi->status_pinjam == 'loan_pending')
-                                Peminjaman Tertunda
+                                Peminjaman Diproses
                             @elseif($transaksi->status_pinjam == 'loan_dismiss')
                                 Peminjaman Ditolak
                             @elseif($transaksi->status_pinjam == 'loan_approved')
@@ -80,7 +80,7 @@
                             
                             <td>
                                 @if($transaksi->status == 'return_pending')
-                                    Pengembalian Tertunda
+                                    Pengembalian Diproses
                                 @elseif($transaksi->status == 'return_dismiss')
                                     Pengembalian Ditolak
                                 @elseif($transaksi->status == 'return_approved')
@@ -122,10 +122,10 @@
                 <div class="modal-body">
                     <div class="field_wrapper">
                         <div class="form-group">
-                            <a href="#" class="btn btn-secondary" id="btnAdd">
+                            <a href="#" class="btn btn-secondary btnAdd" id="btnAdd">
                             Add More
                             </a href="#" class="btn btn-secondary">
-                            <a href="#" class="btn btn-secondary" id="btnDel">
+                            <a href="#" class="btn btn-secondary btnDel" id="btnDel">
                             Delete
                             </a href="#" class="btn btn-secondary">
                             <div id="testingDiv1" class="clonedInput">
@@ -135,7 +135,7 @@
                                         <select name="alat_id[]" class="form-control" id="select">
                                             <option value="">~ Pilih Salah Satu ~</option>
                                             @foreach($alat as $alat)
-                                            <option value="{{$alat->id}}">{{$alat->nama}}</option>
+                                            <option value="{{$alat->id}}">{{$alat->jenis->nama}} - {{$alat->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -243,54 +243,22 @@
     });
 </script>
 <script type="text/javascript">
-$(document).ready(function(){
-	
-    $('#btnAdd').click(function () {
-          var num = $('.clonedInput').length, 
-              newNum = new Number(num + 1), 
-              newElem = $('#testingDiv' + num).clone().attr('id', 'testingDiv' + newNum).fadeIn('normal'); 
-  // Store the block in a variable
-      var $block = $('.clonedInput:last');
-  
-          // Grab the selected value
-      var theValue = $block.find(':selected').val();
-  
-          // Clone the block 
-      var clone = $block.clone();
-  
-          // Find the selected value in the clone, and remove
-      if(theValue !="PleaseSelectOne")
-      clone.find('option[value=' + theValue + ']').remove();
-  // Grab the select in the clone
-  var $select = clone.find('select');
-  var newId="testingDiv"+newNum;
-  console.log(newId);
-      // Update its ID by concatenating theValue to the current ID
-  $select.parent().attr('id', newId);
-              
-           $('#testingDiv' + num).after(clone);
-          $('#btnDel').attr('disabled', false);
-          if (newNum == 5) $('#btnAdd').attr('disabled', true).prop('value', "You've reached the limit");
+    $(document).ready(function(){
+        
+        $('.btnAdd').click(function () {
+            var num = $('.clonedInput').length, 
+            newNum = new Number(num + 1), 
+            newElem = $('#testingDiv' + num).html();
+            var $block = $('.clonedInput:last');
+            var theValue = $block.find(':selected').val();
+            var clone = $block.html();
+            var $select = clone;
+            $('#testingDiv' + num).after(clone);
         });
-        $('#btnDel').click(function () {
-  
-  
-            var num = $('.clonedInput').length;
-  
-              $('#testingDiv' + num).slideUp('slow', function () {
-                $(this).remove();
-  
-                  if (num - 1 === 1) $('#btnDel').attr('disabled', true);
-  
-                  $('#btnAdd').attr('disabled', false).prop('value', "ADD MORE");
-                });
-  
-            return false;
-  
-          $('#btnAdd').attr('disabled', false);
+        $('.btnDel').click(function () {
+        $(".clonedInput").remove();
+        $(".col-4").remove();
         });
-        $('#btnDel').attr('disabled', true);
-  });
-  
+    });
 </script>
 @endpush

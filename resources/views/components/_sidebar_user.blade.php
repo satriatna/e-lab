@@ -23,7 +23,14 @@
             </p>
         </a>
         </li>
-        
+        <li class="nav-item">
+            <a href="{{route('user.alat.index')}}" class="nav-link {{ request()->is('user/alat*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>
+                  Alat
+              </p>
+            </a>
+        </li>
         <li class="nav-item">
             <a href="{{route('user.peminjaman.index')}}" class="nav-link {{ request()->is('user/peminjaman*') ? 'active' : '' }}">
               <i class="nav-icon ion ion-bag"></i>

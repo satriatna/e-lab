@@ -61,7 +61,7 @@
                     <td colspan="3">Status</td>
                     <td>
                       @if($adminPinjam->first()->transaksi->status_pinjam == 'loan_pending')
-                        Peminjaman Tertunda
+                        Peminjaman Diproses
                       @elseif($adminPinjam->first()->transaksi->status_pinjam == 'loan_dismiss')
                         Peminjaman Ditolak
                       @elseif($adminPinjam->first()->transaksi->status_pinjam == 'loan_approved')

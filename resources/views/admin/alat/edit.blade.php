@@ -48,10 +48,6 @@
                     <input type="number" id="stok" name="stok" value="{{$alat->stok}}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="harga">Harga</label>
-                    <input type="number" id="harga" name="harga" value="{{$alat->harga}}" class="form-control">
-                </div>
-                <div class="form-group">
                     <label for="jenis">Jenis</label>
                     <input type="text" disabled id="jenis" name="jenis" value="{{DB::table('jenis')->where('id',$alat->jenis_id)->first()->nama}}" class="form-control" required>
                 </div>

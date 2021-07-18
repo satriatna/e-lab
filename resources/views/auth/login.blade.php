@@ -18,6 +18,12 @@
 		<div class="row justify-content-center mt-5">
 			<center><h1>Laboratorium Kimia SMA N 1 GADING REJO </h1></center>
 			<div class="col-10 mt-4">
+				@if ($message = Session::get('success'))
+					<div class="alert alert-success alert-block">
+						<button type="button" class="close" data-dismiss="alert">×</button>	
+						<strong>Pendaftaran Berhasil</strong>
+					</div>
+				@endif
 				<div class="card">
 						<div class="row">
 							<div class="col-4">				
@@ -54,6 +60,9 @@
 									<div class="card-footer">
 										<div class="form-group mt-3">
 											<a href="{{route('register')}}">Daftar</a>
+										</div>
+										<div class="form-group mt-3">
+											<a href="{{route('forgot')}}">Lupa Password</a>
 										</div>
 									</div>
 								</div>

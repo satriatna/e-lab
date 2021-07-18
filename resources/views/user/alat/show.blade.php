@@ -38,6 +38,10 @@
                     <input type="number" id="stok" name="stok" value="{{$alat->stok}}" class="form-control">
                 </div>
                 <div class="form-group">
+                    <label for="harga">Harga</label>
+                    <input type="number" id="harga" name="harga" value="{{$alat->harga}}" class="form-control">
+                </div>
+                <div class="form-group">
                     <label for="jenis_id">Jenis Alat</label>
                     <input type="text" id="jenis_id" name="jenis_id" value="{{$alat->jenis->nama}}" class="form-control">
                 </div>

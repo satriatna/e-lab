@@ -4,12 +4,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">User</h1>
+        <h1 class="m-0 text-dark">Pemberitahuan Lupa Password</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard.index')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">User</li>
+            <li class="breadcrumb-item active">Pemberitahuan Lupa Password</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -31,10 +31,7 @@
             <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="div">
-                  <h3 class="card-title">User</h3>
-                </div>
-                <div class="div">
-                    <a href="{{route('admin.user.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                  <h3 class="card-title">Pemberitahuan Lupa Password</h3>
                 </div>
             </div>
             </div>
@@ -47,35 +44,25 @@
                             #
                         </th>
                         <th style="width: 20%">
-                            Guru Pembimbing
-                        </th>
-                        <th style="width: 20%">
-                            Instansi
-                        </th>
-                        <th style="width: 20%">
-                            No HP
+                            Username
                         </th>
                         <th style="width: 20%">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $key => $user)
+                    @foreach($forgot as $key => $jenis)
                         <tr>
                             <td>{{++$key}}</td>
-                            <td>{{$user->nama}}</td>
-                            <td>{{$user->instansi }}</td>
-                            <td>{{$user->guru_pembimbing }}</td>
+                            <td>{{$jenis->username}}</td>
                             <td class="project-actions text-right">
                                 <div class="d-flex d-inline">
-                                    <a class="btn btn-primary btn-sm" href="{{route('admin.user.show', $user->id)}}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                    </a>
-                                    <form action="{{route('admin.user.delete', $user->id)}}" id="delete" method="POST">
+                                    <form action="{{ route('admin.forgot-password.update')}}" method="POST">
+                                        @method('PUT')
                                         @csrf
-                                        @method('DELETE')
-                                        <button onclick="return confirm('Apa Anda yakin ?');" type="submit" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></button>
+                                        <input type="hidden" name="id" value="{{ $jenis->id }}">
+                                        <input type="hidden" name="username" value="{{ $jenis->username }}">
+                                        <button type="submit" class="btn btn-primary" onclick="return confirm('Apa Anda yakin ?')">Konfirmasi</button>
                                     </form>
                                 </div>
                             </td>
@@ -89,4 +76,21 @@
     <!-- /.card -->
     </section>
 </div>
+
+
 @endsection
+@push('scripts')
+<script>
+    $('#checkInOut').on('show.bs.modal', (e) => {
+        var id = $(e.relatedTarget).data('id');
+        var nama = $(e.relatedTarget).data('nama');
+        var stok = $(e.relatedTarget).data('stok');
+        var jenis = $(e.relatedTarget).data('jenis');
+
+        $('#checkInOut').find('input[name="id"]').val(id);
+        $('#checkInOut').find('input[name="nama"]').val(nama);
+        $('#checkInOut').find('input[name="stok"]').val(stok);
+        $('#checkInOut').find('input[name="jenis"]').val(jenis);
+    });
+</script>
+@endpush

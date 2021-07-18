@@ -6,12 +6,15 @@ use App\Http\Controllers\Admin\AdminPengembalianController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\JenisController;
 use App\Http\Controllers\Admin\AlatController;
+use App\Http\Controllers\Admin\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengembalianController;
 use App\Http\Controllers\Admin\ReportInController;
 use App\Http\Controllers\Admin\ReportOutController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\AlatController as UserAlatController;
+use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\PeminjamanController as UserPeminjamanController;
 use App\Http\Controllers\User\PengembalianController as UserPengembalianController;
 use App\Http\Controllers\User\UserController as UserUserController;
@@ -38,6 +41,8 @@ Route::get('/register',[AuthController::class,'registerForm'])->name('registerFo
 Route::post('/register',[AuthController::class,'register'])->name('register');
 Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'forgot'])->name('forgot');
+Route::post('/', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot-password');
 
 // Auth::routes();
 
@@ -50,7 +55,6 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('', [UserController::class, 'index'])->name('index');
         Route::get('show/{id}', [UserController::class, 'show'])->name('show');
         Route::get('create', [UserController::class, 'create'])->name('create');
-        Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
         Route::delete('delete/{id}', [UserController::class, 'delete'])->name('delete');
         Route::put('update', [UserController::class, 'update'])->name('update');
         Route::post('store', [UserController::class, 'store'])->name('store');
@@ -66,6 +70,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('store', [AlatController::class, 'store'])->name('store');
         Route::post('pinjam', [AlatController::class, 'pinjam'])->name('pinjam');
     });
+    
     Route::prefix('jenis')->name('jenis.')->group(function(){
         Route::get('', [JenisController::class, 'index'])->name('index');
         Route::get('show/{id}', [JenisController::class, 'show'])->name('show');
@@ -74,6 +79,12 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::delete('delete/{id}', [JenisController::class, 'delete'])->name('delete');
         Route::put('update', [JenisController::class, 'update'])->name('update');
         Route::post('store', [JenisController::class, 'store'])->name('store');
+    });
+    
+    Route::prefix('forgot-password')->name('forgot-password.')->group(function(){
+        Route::get('', [AdminForgotPasswordController::class, 'index'])->name('index');
+        Route::put('delete', [AdminForgotPasswordController::class, 'delete'])->name('delete');
+        Route::put('update', [AdminForgotPasswordController::class, 'update'])->name('update');
     });
     Route::prefix('transaksi')->name('transaksi.')->group(function(){
         Route::get('', [AdminPeminjamanController::class, 'index'])->name('index');
@@ -110,6 +121,11 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::prefix('pengembalian')->name('pengembalian.')->group(function(){
         Route::get('', [UserPengembalianController::class, 'index'])->name('index');
         Route::post('', [UserPengembalianController::class, 'store'])->name('store');
+    });
+    Route::prefix('alat')->name('alat.')->group(function(){
+        Route::get('', [UserAlatController::class, 'index'])->name('index');
+        Route::get('index-alat/{jenisId}', [UserAlatController::class, 'indexAlat'])->name('indexAlat');
+        Route::get('show/{id}', [UserAlatController::class, 'show'])->name('show');
     });
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

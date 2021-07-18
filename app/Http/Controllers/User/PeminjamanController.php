@@ -49,12 +49,12 @@ class PeminjamanController extends Controller
                 'updated_at' => $request->created_at,
                 'bukti_bayar' => $namePhoto,
             ]);
-            foreach($alat as $key => $al)
+            foreach($request->alat_id as $key => $al)
             {
                 if($request->jumlah[$key] != null){
                     Peminjaman::create([
                         'transaksi_id' => $transaksi,
-                        'alat_id' => $al->id,
+                        'alat_id' => $al,
                         'jumlah' => $request->jumlah[$key],
                         'keterangan' => $request->keterangan[$key],
                     ]);

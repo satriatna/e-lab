@@ -51,7 +51,6 @@ class AlatController extends Controller
             'kode' => 'unique:alat',
         ]);
         $data['nama'] = $request->nama;
-        $data['harga'] = $request->harga;
         $data['kode'] = $request->kode;
         $data['stok'] = $request->stok;
         $data['jenis_id'] = $request->jenis_id;
@@ -75,7 +74,6 @@ class AlatController extends Controller
         ]);
         $alat = Alat::find($request->id);
         $data['nama'] = $request->nama;
-        $data['harga'] = $request->harga;
         $data['kode'] = $request->kode;
         $data['stok'] = $request->stok;
         $data['jenis_id'] = $request->jenis_id;
@@ -93,9 +91,5 @@ class AlatController extends Controller
         }
         $alat->update($data);
         return redirect(route('admin.alat.indexAlat', $request->jenis_id))->with('success','Berhasil diubah');
-    }
-    public function pinjam(Request $request)
-    {
-        dd($request->all());
     }
 }

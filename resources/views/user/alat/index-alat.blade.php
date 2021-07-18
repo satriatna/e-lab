@@ -8,7 +8,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('admin.dashboard.index')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('user.dashboard.index')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Alat</li>
         </ol>
         </div><!-- /.col -->
@@ -33,9 +33,6 @@
                 <div class="div">
                   <h3 class="card-title">Alat -  Jenis ( {{ DB::table('jenis')->where('id',$jenisId)->first()->nama }} )</h3>
                 </div>
-                <div class="div">
-                    <a href="{{route('admin.alat.create', $jenisId)}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                </div>
             </div>
             </div>
             <!-- /.card-header -->
@@ -53,6 +50,9 @@
                             Nama Alat
                         </th>
                         <th style="width: 20%">
+                            Harga
+                        </th>
+                        <th style="width: 20%">
                             Stok
                         </th>
                         <th style="width: 20%">
@@ -68,6 +68,7 @@
                             <td>{{++$key}}</td>
                             <td>{{$alat->kode}}</td>
                             <td>{{$alat->nama}}</td>
+                            <td>{{$alat->harga }}</td>
                             <td>{{$alat->stok }}</td>
                             <td>
                                 @if($alat->photo != null)
@@ -76,19 +77,10 @@
                             </td>
                             <td class="project-actions text-right">
                                 <div class="d-flex d-inline">
-                                    <a class="btn btn-primary btn-sm" href="{{route('admin.alat.show', $alat->id)}}">
+                                    <a class="btn btn-primary btn-sm" href="{{route('user.alat.show', $alat->id)}}">
                                         <i class="fas fa-folder">
                                         </i>
                                     </a>
-                                    <a class="ml-1  btn btn-info btn-sm" href="{{route('admin.alat.edit', $alat->id)}}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                    </a>
-                                    <form action="{{route('admin.alat.delete', $alat->id)}}" id="delete" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>

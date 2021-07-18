@@ -51,6 +51,15 @@
               </p>
             </a>
         </li>
+        
+        <li class="nav-item">
+            <a href="{{route('admin.forgot-password.index')}}" class="nav-link {{ request()->is('admin/forgot-password*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-bell"></i>
+              <p>
+                  Lupa Password
+              </p>
+            </a>
+        </li>
         <li class="nav-item">
             <a href="{{route('admin.transaksi.index')}}" class="nav-link {{ request()->is('admin/transaksi*') ? 'active' : '' }}">
               <i class="nav-icon ion ion-bag"></i>

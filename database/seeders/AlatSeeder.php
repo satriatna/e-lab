@@ -18,14 +18,12 @@ class AlatSeeder extends Seeder
             'jenis_id'=>'1',
             'kode'=>'001',
             'nama'=>'Kaki Tiga',
-            'harga'=>'20000',
             'stok'=>'100',
         ]);
         Alat::create([
             'jenis_id'=>'1',
             'kode'=>'002',
             'nama'=>'Larutan',
-            'harga'=>'10000',
             'stok'=>'50',
         ]);
     }

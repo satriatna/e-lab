@@ -41,10 +41,6 @@
                     <input type="number" id="stok" name="stok" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="harga">Harga</label>
-                    <input type="number" id="harga" name="harga" class="form-control" required>
-                </div>
-                <div class="form-group">
                     <label for="jenis">Jenis</label>
                     <input type="text" disabled id="jenis" name="jenis" value="{{DB::table('jenis')->where('id',$jenisId)->first()->nama}}" class="form-control" required>
                 </div>

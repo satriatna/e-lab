@@ -4,12 +4,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">User</h1>
+        <h1 class="m-0 text-dark">Jenis Alat</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('admin.dashboard.index')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">User</li>
+            <li class="breadcrumb-item"><a href="{{route('user.dashboard.index')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Jenis Alat</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -31,10 +31,7 @@
             <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="div">
-                  <h3 class="card-title">User</h3>
-                </div>
-                <div class="div">
-                    <a href="{{route('admin.user.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                  <h3 class="card-title">Jenis Alat</h3>
                 </div>
             </div>
             </div>
@@ -47,36 +44,35 @@
                             #
                         </th>
                         <th style="width: 20%">
-                            Guru Pembimbing
+                            Nama Alat
                         </th>
                         <th style="width: 20%">
-                            Instansi
+                            Foto
                         </th>
                         <th style="width: 20%">
-                            No HP
+                            Total Alat
                         </th>
                         <th style="width: 20%">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $key => $user)
+                    @foreach($jenis as $key => $jenis)
                         <tr>
                             <td>{{++$key}}</td>
-                            <td>{{$user->nama}}</td>
-                            <td>{{$user->instansi }}</td>
-                            <td>{{$user->guru_pembimbing }}</td>
+                            <td>{{$jenis->nama}}</td>
+                            <td>
+                                @if($jenis->photo != null)
+                                <img src="{{url('images/'. $jenis->photo)}}" style="height:70px;;width:70px;;">
+                                @endif
+                            </td>
+                            <td>{{$jenis->alat()->count()}}</td>
                             <td class="project-actions text-right">
                                 <div class="d-flex d-inline">
-                                    <a class="btn btn-primary btn-sm" href="{{route('admin.user.show', $user->id)}}">
-                                        <i class="fas fa-folder">
+                                    <a class="btn btn-primary btn-sm" href="{{route('user.alat.indexAlat', $jenis->id)}}">
+                                        <i class="fas fa-eye">
                                         </i>
                                     </a>
-                                    <form action="{{route('admin.user.delete', $user->id)}}" id="delete" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button onclick="return confirm('Apa Anda yakin ?');" type="submit" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -89,4 +85,21 @@
     <!-- /.card -->
     </section>
 </div>
+
+
 @endsection
+@push('scripts')
+<script>
+    $('#checkInOut').on('show.bs.modal', (e) => {
+        var id = $(e.relatedTarget).data('id');
+        var nama = $(e.relatedTarget).data('nama');
+        var stok = $(e.relatedTarget).data('stok');
+        var jenis = $(e.relatedTarget).data('jenis');
+
+        $('#checkInOut').find('input[name="id"]').val(id);
+        $('#checkInOut').find('input[name="nama"]').val(nama);
+        $('#checkInOut').find('input[name="stok"]').val(stok);
+        $('#checkInOut').find('input[name="jenis"]').val(jenis);
+    });
+</script>
+@endpush
