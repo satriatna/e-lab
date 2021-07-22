@@ -59,6 +59,7 @@
                         <th style="width: 20%">
                             Status Pengembalian
                         </th>
+                        <th>Status Pembayaran</th>
                         <th style="width: 20%">
                         </th>
                     </tr>
@@ -93,7 +94,20 @@
                                         <i class="fas fa-eye">
                                         </i>
                                     </a>
-                                        <a href="{{route('user.peminjaman.delete', $transaksi->id)}}" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
+                                    <a href="{{route('user.peminjaman.delete', $transaksi->id)}}" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                            <td class="project-actions text-right">
+                                <div class="d-flex d-inline justify-content-center align-items-center">
+                                    @if($transaksi->status_pinjam == 'loan_approved')
+                                        @if($transaksi->bukti_bayar != null)
+                                            <div class="badge badge-success align-items-center" style="margin-top: 10px !important;">Pembayaran Berhasil</div>
+                                        @else
+                                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#uploadBuktiBayar" data-id="{{ $transaksi->id }}">Upload Bukti Pembayaran</button>
+                                        @endif
+                                    @else
+                                        Status Peminjaman Tidak Mendukung
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -105,6 +119,45 @@
         </div>
     <!-- /.card -->
     </section>
+</div>
+
+
+<div class="modal fade" id="uploadBuktiBayar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <form action="{{ route('user.peminjaman.upload') }}" method="POST" id="form" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span>Upload Bukti Pembayaran</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="bukti_bayar">Bukti Bayar</label>
+                        <input type="file" class="form-control @error('bukti_bayar') is-invalid @enderror" id="bukti_bayar" name="bukti_bayar" required>
+                        @error('bukti_bayar')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                Silahkan membayar biaya peralatan alat sebesar Rp 25.000. <br> 
+                Pembayaran dapat di lakukan melalui
+                Rek BRI 0409-01-028554-50-0
+                Atau Dana 081338402976
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade bd-example-modal-lg" id="pinjam" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -164,19 +217,15 @@
                         <label for="nama">Guru Pembimbing</label>
                         <input type="text" disabled class="form-control" id="nama" name="nama" value="{{Auth::guard(session()->get('role'))->user()->nama}}" required>
                     </div>
-                    <div class="form-group">
-                        <label for="bukti_bayar">Bukti Pembayaran</label> <br>
-                        <input type="file" id="bukti_bayar" name="bukti_bayar" required>
-                    </div>
                 </div>
                 <div class="modal-footer">
                 <span class="text-bold">
-                Silahkan membayar biaya peralatan alat sebesar Rp 25.000. <br> 
-                Pembayaran dapat di lakukan melalui
-                Rek BRI 0409-01-028554-50-0
-                Atau Dana 081338402976
+                Batas waktu pengembalian alat yaitu 1 minggu setelah alat di pinjam. <br>
+                Jika melebihi waktu yang ditentukan maka akan dikenakan denda Rp 5.000 per alat.
+                Alat dapat di ambil di laboratorium kimia SMA N 1 Gadingrejo.
                 </span>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -240,6 +289,13 @@
     $('#print').on('show.bs.modal', (e) => {
         var id = $(e.relatedTarget).data('id');
         $('#print').find('input[name="id"]').val(id);
+    });
+
+    
+    $('#uploadBuktiBayar').on('show.bs.modal', (e) => {
+        var id = $(e.relatedTarget).data('id');
+        console.log(id);
+        $('#uploadBuktiBayar').find('input[name="id"]').val(id);
     });
 </script>
 <script type="text/javascript">

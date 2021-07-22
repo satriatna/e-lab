@@ -16,6 +16,7 @@ class CreateForgotPasswordTable extends Migration
         Schema::create('forgot_password', function (Blueprint $table) {
             $table->id();
             $table->string('username');
+            $table->string('password');
             $table->timestamps();
         });
     }

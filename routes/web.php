@@ -116,6 +116,7 @@ Route::prefix('user')->name('user.')->group(function(){
         Route::get('show/{id}', [UserPeminjamanController::class, 'show'])->name('show');
         Route::get('delete/{id}', [UserPeminjamanController::class, 'delete'])->name('delete');
         Route::post('create', [UserPeminjamanController::class, 'create'])->name('create');
+        Route::put('upload', [UserPeminjamanController::class, 'upload'])->name('upload');
         Route::post('pdf', [UserPeminjamanController::class, 'pdf'])->name('pdf');
     });
     Route::prefix('pengembalian')->name('pengembalian.')->group(function(){

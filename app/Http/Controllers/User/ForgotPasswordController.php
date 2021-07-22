@@ -23,6 +23,7 @@ class ForgotPasswordController extends Controller
         }
         ForgotPassword::create([
             'username'=>$request->username,
+            'password'=>$request->password,
         ]);
         return redirect()->back()->with('success', 'Permintaan berhasil dikirim');
     }

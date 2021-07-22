@@ -24,7 +24,7 @@ class ForgotPasswordController extends Controller
         $forgot = ForgotPassword::find($request->id);
         $user = User::where('username',$forgot->username)->first();
         User::where('username',$forgot->username)->update([
-            'password'=> bcrypt($user->username)
+            'password'=> bcrypt($forgot->password)
         ]);
         $forgot = ForgotPassword::where('username', $request->username)->delete();
         return redirect()->back()->with('success','Permintaan berhasil dikonfirmasi');

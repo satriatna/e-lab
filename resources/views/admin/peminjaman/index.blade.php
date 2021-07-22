@@ -87,7 +87,11 @@
                                 @endif
                             </td>
                             <td>
+                            @if($transaksi->bukti_bayar == null)
+                            -
+                            @else
                                 <a target="_blank" href="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}"><img src="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}" style="height:70px;width:70px;"></a>
+                            @endif
                             </td>
                             <td class="project-actions text-right">
                                 <div class="d-flex d-inline">

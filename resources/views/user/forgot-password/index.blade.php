@@ -37,6 +37,10 @@
 						<div class="form-row">
 							<label for="username">Ketik Username Anda :</label>
 							<input type="text" name="username" id="username" class="form-control" required value="{{ old('username') }}">
+						</div>
+						<div class="form-row">
+							<label for="password">Password Baru :</label>
+							<input type="text" name="password" id="password" class="form-control" required value="{{ old('password') }}">
 						</div><br>
 						<div class="form-row">
 							<input type="submit" class="btn btn-primary" value="Kirim">
@@ -44,6 +48,7 @@
 						</div>
 					</form>
 				</div>
+				<div class="card-footer">Jika dalam 2-3 jam belum mendapatkan konfirmasi password baru, harap menghubungi Admin. 081338402976 </div>
 			</div>
 		</div>
 	</div>

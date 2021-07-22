@@ -14,7 +14,7 @@ class PeminjamanController extends Controller
 {
     public function index(Request $request)
     {
-        $transaksi = Transaksi::where('user_id',$this->authUser()->id)->get();
+        $transaksi = Transaksi::where('user_id',$this->authUser()->id)->orderBy('id','DESC')->get();
         $alat = Alat::all();
         return view('user.peminjaman.index',compact('transaksi','alat'));
     }
@@ -37,17 +37,11 @@ class PeminjamanController extends Controller
             return redirect()->back()->with('alert','kolom jumlah dan keterangan harus diisi');
         }
         if($jumlah == false && $keterangan == false){
-                $buktiBayar = $request->file('bukti_bayar');
-                $size = $buktiBayar->getSize();
-                $namePhoto = time() . "_" . $buktiBayar->getClientOriginalName();
-                $path = 'images/bukti-pembayaran';
-                $buktiBayar->move($path, $namePhoto);
             $transaksi = Transaksi::insertGetId([
                 'user_id' => $request->user_id,
                 'status_pinjam' => 'loan_pending',
                 'created_at' => $request->created_at,
                 'updated_at' => $request->created_at,
-                'bukti_bayar' => $namePhoto,
             ]);
             foreach($request->alat_id as $key => $al)
             {
@@ -90,5 +84,38 @@ class PeminjamanController extends Controller
         // return view('user.laporan.index', compact('laporan','dari','ke','tipe'));
     	$pdf = PDF::loadview('user.laporan.index',compact('laporan','dari','ke','tipe'))->setPaper('a4', 'landscape');;
         return $pdf->stream();
+    }
+
+    public function upload(Request $request)
+    {
+        $transaksi = Transaksi::find($request->id);
+        $peminjaman = Peminjaman::where('transaksi_id', $transaksi->id)->get();
+        
+        $buktiBayar = $request->file('bukti_bayar');
+        $size = $buktiBayar->getSize();
+        $namePhoto = time() . "_" . $buktiBayar->getClientOriginalName();
+        $path = 'images/bukti-pembayaran';
+        $buktiBayar->move($path, $namePhoto);
+
+        $transaksi->update(['bukti_bayar' => $namePhoto]);
+        
+        $alatID = Peminjaman::where('transaksi_id', $transaksi->id)->select('alat_id')->get()->toArray();
+        $cekStok = Alat::whereIn('id',array_column($alatID, 'alat_id'))->get();
+        foreach($cekStok as $a)
+        {
+            foreach($peminjaman as $pem){
+                if($a->stok < $pem->jumlah)
+                {
+                    return redirect()->back()->with('alert','stok alat '. $a->nama. ' tidak mencukupi');
+                }
+            }
+        }
+        foreach($peminjaman as $pem){
+            $alat = Alat::find($pem->alat_id);
+            $stokAkhir = $alat->stok - $pem->jumlah;
+            $alat->update(['stok' => $stokAkhir]);
+        }
+
+        return redirect()->back()->with('success','Bukti pembayaran berhasil dikirim');
     }
 }

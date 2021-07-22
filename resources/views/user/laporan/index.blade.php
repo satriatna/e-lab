@@ -41,8 +41,8 @@ table {
                 <td>{{$lap->jumlah}} </td>
                 <td>{{$lap->keterangan}} </td>
                 @php
-                $public = 'images/bukti/'. $lap->transaksi->bukti_bayar;
-                $image = base64_encode(file_get_conten  ts(public_path($public)));
+                $public = 'images/bukti-pembayaran/'. $lap->transaksi->bukti_bayar;
+                $image = base64_encode(file_get_contents(public_path($public)));
                 @endphp
                 <td>
                     <img src="data:image/png;base64,{{ $image }}" style="height:70px;width:70px;">
