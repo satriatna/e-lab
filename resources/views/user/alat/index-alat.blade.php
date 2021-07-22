@@ -50,9 +50,6 @@
                             Nama Alat
                         </th>
                         <th style="width: 20%">
-                            Harga
-                        </th>
-                        <th style="width: 20%">
                             Stok
                         </th>
                         <th style="width: 20%">
@@ -68,7 +65,6 @@
                             <td>{{++$key}}</td>
                             <td>{{$alat->kode}}</td>
                             <td>{{$alat->nama}}</td>
-                            <td>{{$alat->harga }}</td>
                             <td>{{$alat->stok }}</td>
                             <td>
                                 @if($alat->photo != null)
