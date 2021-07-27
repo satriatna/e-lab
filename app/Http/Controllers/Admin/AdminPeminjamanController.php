@@ -8,6 +8,7 @@ use App\Models\Attendance;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class AdminPeminjamanController extends Controller
@@ -44,5 +45,14 @@ class AdminPeminjamanController extends Controller
     {
         Transaksi::find($id)->delete();
         return redirect()->back()->with('success','Transaksi berhasi dihapus');
+    }
+    public function cetak(Request $request, $id)
+    {
+        $transaksi = Transaksi::find($id);
+        $peminjaman = Peminjaman::where('transaksi_id',$id)->get();
+        $pengembalian = Pengembalian::where('transaksi_id',$id)->get();
+        $tipe = $request->tipe;
+    	$pdf = PDF::loadview('admin.transaksi.cetak',compact('transaksi','peminjaman','pengembalian','tipe'));
+        return $pdf->stream();
     }
 }

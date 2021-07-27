@@ -9,6 +9,7 @@ use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 class PeminjamanController extends Controller
 {
@@ -76,14 +77,31 @@ class PeminjamanController extends Controller
         $dari = $request->dari;
         $ke = $request->ke;
         $tipe = $request->tipe;
+        $role = session()->get('role');
+        $guard = Auth::guard(session()->get('role'))->user();
         if($request->tipe == 'pinjam'){
-            $laporan = Peminjaman::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke);
+            if($role == 'admin'){
+                $laporan = Peminjaman::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke)->get();
+            }else{
+                $laporan = Peminjaman::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke)
+                ->whereHas('transaksi', function($q) use($guard){
+                    $q->where('user_id',$guard->id);
+                })->get();
+            }
         }else{
-            $laporan = Pengembalian::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke);
+            if($role == 'admin'){
+                $laporan = Pengembalian::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke)->get();
+            }else{
+                $laporan = Pengembalian::whereDate('created_at', '>=', $request->dari)->whereDate('created_at', '<=', $request->ke)
+                ->whereHas('transaksi', function($q) use($guard){
+                    $q->where('user_id',$guard->id);
+                })->get();
+            }
         }
         // return view('user.laporan.index', compact('laporan','dari','ke','tipe'));
-    	$pdf = PDF::loadview('user.laporan.index',compact('laporan','dari','ke','tipe'))->setPaper('a4', 'landscape');;
+    	$pdf = PDF::loadview('user.laporan.index',compact('laporan','dari','ke','tipe'));
         return $pdf->stream();
+    	return view('user.laporan.index',compact('laporan','dari','ke','tipe'));
     }
 
     public function upload(Request $request)

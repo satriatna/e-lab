@@ -8,7 +8,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('admin.dashboard.index')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('user.dashboard.index')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Transaksi</li>
         </ol>
         </div><!-- /.col -->
@@ -290,15 +290,12 @@
         var id = $(e.relatedTarget).data('id');
         $('#print').find('input[name="id"]').val(id);
     });
-
     
     $('#uploadBuktiBayar').on('show.bs.modal', (e) => {
         var id = $(e.relatedTarget).data('id');
         console.log(id);
         $('#uploadBuktiBayar').find('input[name="id"]').val(id);
     });
-</script>
-<script type="text/javascript">
     $(document).ready(function(){
         
         $('.btnAdd').click(function () {

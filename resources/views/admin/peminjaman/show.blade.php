@@ -9,7 +9,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Detail Transaksi</h1>
+        <h1 class="m-0 text-dark d-none">Detail Transaksi</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -27,7 +27,14 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              Detail Transaksi
+              <div class="row d-flex d-inline">
+                <div class="col">
+                <h1 class="m-0 text-dark">Detail Transaksi</h1>
+                </div>
+                <div class="col text-right  ">
+                <h1 class="m-0 text-dark"><a href="#" data-toggle="modal" data-target="#print"><i class="fas fa-print"></i></a></h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -56,11 +63,11 @@
                   </tr>
                   @endforeach
                 </tbody>
+                
                 <tfoot>
                   <tr>
                     <td colspan="3">Status</td>
                     <td>
-                     
                       @if($peminjaman->first()->transaksi->status_pinjam == 'loan_pending')
                         Peminjaman Diproses
                       @elseif($peminjaman->first()->transaksi->status_pinjam == 'loan_dismiss')
@@ -68,6 +75,32 @@
                       @elseif($peminjaman->first()->transaksi->status_pinjam == 'loan_approved')
                         Peminjaman Diterima
                       @endif
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Hari / Tanggal</td>
+                    <td>
+                      {{
+                        date('l / m-d-Y', strtotime($peminjaman->first()->created_at))
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">No HP</td>
+                    <td>
+                      {{ $peminjaman->first()->transaksi->user->guru_pembimbing  }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Instansi</td>
+                    <td>
+                      {{ $peminjaman->first()->transaksi->user->instansi  }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Guru Pembimbing</td>
+                    <td>
+                      {{ $peminjaman->first()->transaksi->user->nama  }}
                     </td>
                   </tr>
                   <tr>
@@ -184,6 +217,10 @@
                       {{ $pengembalian->first()->transaksi->user->nama  }}
                     </td>
                   </tr>
+                  <tr>
+                    <td colspan="3">Pengelola Lab</td>
+                    <td>{{$adminPinjam->first()->admin->nama ?? 'Belum Di Konfirmasi'}}</td>
+                  </tr>
                 </tfoot>
 
               </table>
@@ -219,6 +256,37 @@
         @endif
       </div>
     </section>
+</div>
+
+<div class="modal fade" id="print" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('admin.transaksi.cetak', $transaksi->id) }}" method="POST">
+                @csrf
+                @method('POST')
+                <div class="modal-header">
+                    <h5 class="modal-title"><span>Cetak</span> Data Transaksi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="tipe">Jenis</label>
+                        <select name="tipe" id="tipe" required class="custom-select">
+                          <option value="">~ Pilih ~</option>
+                          <option value="pinjam">Peminjaman</option>
+                          <option value="kembali">Pengembalian</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
 @push('scripts')

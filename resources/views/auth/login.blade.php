@@ -24,6 +24,12 @@
 						<strong>Pendaftaran Berhasil</strong>
 					</div>
 				@endif
+				@if($errors->any())
+					<div class="alert alert-danger alert-block">
+						<button type="button" class="close" data-dismiss="alert">×</button>	
+						<strong>Proses login gagal. Username atau password salah</strong>
+					</div>
+				@endif
 				<div class="card">
 						<div class="row">
 							<div class="col-4">				

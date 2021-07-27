@@ -56,6 +56,7 @@
                   </tr>
                   @endforeach
                 </tbody>
+                
                 <tfoot>
                   <tr>
                     <td colspan="3">Status</td>
@@ -67,6 +68,32 @@
                       @elseif($adminPinjam->first()->transaksi->status_pinjam == 'loan_approved')
                         Peminjaman Diterima
                       @endif
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Hari / Tanggal</td>
+                    <td>
+                      {{
+                        date('l / m-d-Y', strtotime($adminPinjam->first()->created_at))
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">No HP</td>
+                    <td>
+                      {{ $adminPinjam->first()->transaksi->user->guru_pembimbing  }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Instansi</td>
+                    <td>
+                      {{ $adminPinjam->first()->transaksi->user->instansi  }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Guru Pembimbing</td>
+                    <td>
+                      {{ $adminPinjam->first()->transaksi->user->nama  }}
                     </td>
                   </tr>
                   <tr>
@@ -194,6 +221,10 @@
                     <td>
                       {{ $pengembalian->first()->transaksi->user->nama  }}
                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Pengelola Lab</td>
+                    <td>{{$adminPinjam->first()->admin->nama ?? 'Belum Di Konfirmasi'}}</td>
                   </tr>
                 </tfoot>
 

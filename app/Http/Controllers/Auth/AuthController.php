@@ -51,7 +51,6 @@ class AuthController extends Controller
                 ->intended(route($request->role == 'admin' ? 'admin.dashboard.index' : $request->role .'.dashboard.index'))
                 ->with('status', 'Selamat datang!'); 
         }
-        
         return redirect()->back()->with('error','Identitas tersebut tidak cocok dengan data kami.');
     }
 

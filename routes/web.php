@@ -88,7 +88,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     });
     Route::prefix('transaksi')->name('transaksi.')->group(function(){
         Route::get('', [AdminPeminjamanController::class, 'index'])->name('index');
-        Route::get('', [AdminPeminjamanController::class, 'index'])->name('index');
+        Route::post('/cetak/{id}', [AdminPeminjamanController::class, 'cetak'])->name('cetak');
     });
     
     Route::prefix('peminjaman')->name('peminjaman.')->group(function(){

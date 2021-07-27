@@ -15,15 +15,6 @@ class PengembalianController extends Controller
     public function store(Request $request)
     {
         $alat = Alat::whereIn('id',$request->alat_id)->get();
-        foreach($alat as $a)
-        {
-            foreach($request->jumlah as $key => $jumlah){
-                if($a->stok < $jumlah)
-                {
-                    return redirect()->back()->with('alert','stok alat '. $a->nama. ' tidak mencukupi');
-                }
-            }
-        }
         Transaksi::find($request->transaksi_id)->update(['status' => 'return_pending']);
         foreach($alat as $key => $al)
         {
