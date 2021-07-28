@@ -18,7 +18,6 @@ class CreateAlatTable extends Migration
             $table->foreignId('jenis_id')->references('id')->on('jenis')->onDelete('cascade');
             $table->string('kode')->unique();
             $table->string('nama');
-            $table->string('harga');
             $table->string('stok');
             $table->string('photo')->nullable();
             $table->timestamps();

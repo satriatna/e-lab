@@ -96,6 +96,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('show/{id}', [AdminPeminjamanController::class, 'show'])->name('show');
         Route::delete('delete/{id}', [AdminPeminjamanController::class, 'delete'])->name('delete');
         Route::post('konfirmasi', [AdminPeminjamanController::class, 'konfirmasi'])->name('konfirmasi');
+        Route::put('pembayaran-update', [AdminPeminjamanController::class, 'pembayaran_update'])->name('pembayaran_update');
     });
     Route::prefix('pengembalian')->name('pengembalian.')->group(function(){
         Route::get('', [AdminPengembalianController::class, 'index'])->name('index');
@@ -117,6 +118,7 @@ Route::prefix('user')->name('user.')->group(function(){
         Route::get('delete/{id}', [UserPeminjamanController::class, 'delete'])->name('delete');
         Route::post('create', [UserPeminjamanController::class, 'create'])->name('create');
         Route::put('upload', [UserPeminjamanController::class, 'upload'])->name('upload');
+        Route::put('print-individu', [UserPeminjamanController::class, 'print_individu'])->name('print-individu');
         Route::post('pdf', [UserPeminjamanController::class, 'pdf'])->name('pdf');
     });
     Route::prefix('pengembalian')->name('pengembalian.')->group(function(){

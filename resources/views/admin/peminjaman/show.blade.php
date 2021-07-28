@@ -77,14 +77,7 @@
                       @endif
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan="3">Hari / Tanggal</td>
-                    <td>
-                      {{
-                        date('l / m-d-Y', strtotime($peminjaman->first()->created_at))
-                      }}
-                    </td>
-                  </tr>
+                
                   <tr>
                     <td colspan="3">No HP</td>
                     <td>
@@ -191,14 +184,7 @@
                       
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan="3">Hari / Tanggal</td>
-                    <td>
-                      {{
-                        date('l / m-d-Y', strtotime($pengembalian->first()->created_at))
-                      }}
-                    </td>
-                  </tr>
+                
                   <tr>
                     <td colspan="3">No HP</td>
                     <td>

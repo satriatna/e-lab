@@ -50,6 +50,12 @@
                         Jumlah Alat
                         </th>
                         <th style="width: 20%">
+                        Dari Tanggal
+                        </th>
+                        <th style="width: 20%">
+                        Sampai Tanggal
+                        </th>
+                        <th style="width: 20%">
                             Status Pinjaman
                         </th>
                         <th style="width: 20%">
@@ -67,6 +73,8 @@
                         <tr>
                             <td>{{++$key}}</td>
                             <td>{{$transaksi->peminjaman()->count()}}</td>
+                            <td>{{$transaksi->dari_tanggal}}</td>
+                            <td>{{$transaksi->sampai_tanggal}}</td>
                             <td>
                                 @if($transaksi->status_pinjam == 'loan_pending')
                                     Peminjaman Diproses
@@ -90,7 +98,7 @@
                             @if($transaksi->bukti_bayar == null)
                             -
                             @else
-                                <a target="_blank" href="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}"><img src="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}" style="height:70px;width:70px;"></a>
+                                <a data-toggle="modal" href="#" data-id="{{$transaksi->id}}" data-target="#pembayaran"><img src="{{url('images/bukti-pembayaran/'. $transaksi->bukti_bayar)}}" style="height:70px;width:70px;"></a>
                             @endif
                             </td>
                             <td class="project-actions text-right">
@@ -163,8 +171,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="created_at">Hari / Tanggal</label>
-                        <input type="datetime-local" class="form-control" id="created_at" name="created_at" required>
+                        <label for="dari_tanggal">Dari Tanggal</label>
+                        <input type="date" class="form-control" id="dari_tanggal" name="dari_tanggal" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sampai_tanggal">Sampai Tanggal</label>
+                        <input type="date" class="form-control" id="sampai_tanggal" name="sampai_tanggal" required>
                     </div>
                     <div class="form-group">
                         <label for="instansi">Instansi</label>
@@ -212,6 +224,47 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pembayaran" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('admin.peminjaman.pembayaran_update') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span>Konfirmasi </span>Bukti Pembayaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                    <label for="keterangan">Keterangan</label>
+                        <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" required>
+                        @error('keterangan')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="custom-select" required>
+                            <option value="">~ Pilih ~</option>
+                            <option value="valid">Valid</option>
+                            <option value="tidak">Tidak Valid</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -283,6 +336,14 @@ $(document).ready(function(){
         });
         $('#btnDel').attr('disabled', true);
   });
+  
+  $('#pembayaran').on('show.bs.modal', (e) => {
+    var id = $(e.relatedTarget).data('id');
+    var keterangan = $(e.relatedTarget).data('keterangan');
+
+    $('#pembayaran').find('input[name="id"]').val(id);
+    $('#pembayaran').find('input[name="keterangan"]').val(keterangan);
+});
   
 </script>
 @endpush

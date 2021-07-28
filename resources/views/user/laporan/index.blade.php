@@ -70,7 +70,7 @@ table {
         </h6>
     <table class="table table-bordered" border="5px solid black">
             <tr>
-                <th colspan="6"><center>Data Yang {{$tipe == 'pinjam' ? 'Dipinjam' : 'Dikembalikan'}}</center> </th>
+                <th colspan="7"><center>Data Yang {{$tipe == 'pinjam' ? 'Dipinjam' : 'Dikembalikan'}}</center> </th>
             </tr>
             <thead>
                 <tr>
@@ -79,7 +79,8 @@ table {
                     <th>Jumlah</th>
                     <th>Keterangan</th>
                     <th>Bukti Pembayaran</th>
-                    <th>Tanggal</th>
+                    <th>Dari Tanggal</th>
+                    <th>Sampai Tanggal</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,12 +104,15 @@ table {
                         @endif
                     </td>
                     <td>
-                        {{Carbon\Carbon::parse($lap->created_at)->isoFormat('dddd, D MMM Y')}}
+                        {{Carbon\Carbon::parse($lap->dari_tanggal)->isoFormat('dddd, D MMM Y')}}
+                    </td>
+                    <td>
+                        {{Carbon\Carbon::parse($lap->sampai_tanggal)->isoFormat('dddd, D MMM Y')}}
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6"><center>Tidak ada data</center></td>
+                    <td colspan="7"><center>Tidak ada data</center></td>
                 </tr>
                 @endforelse
             </tbody>

@@ -55,4 +55,20 @@ class AdminPeminjamanController extends Controller
     	$pdf = PDF::loadview('admin.transaksi.cetak',compact('transaksi','peminjaman','pengembalian','tipe'));
         return $pdf->stream();
     }
+    public function pembayaran_update(Request $request)
+    {
+        if($request->status != 'valid'){
+            $transaksi = Transaksi::find($request->id);
+            $transaksi->update([
+                'bukti_bayar' => null,
+                'keterangan_pembayaran' => $request->keterangan
+            ]);
+        }else{
+            $transaksi = Transaksi::find($request->id);
+            $transaksi->update([
+                'keterangan_pembayaran' => $request->keterangan
+            ]);
+        }
+        return redirect()->back()->with('success','Bukti Pembayaran Berhasil Dikonfirmasi');
+    }
 }

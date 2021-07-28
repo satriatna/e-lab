@@ -70,14 +70,7 @@
                       @endif
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan="3">Hari / Tanggal</td>
-                    <td>
-                      {{
-                        date('l / m-d-Y', strtotime($adminPinjam->first()->created_at))
-                      }}
-                    </td>
-                  </tr>
+               
                   <tr>
                     <td colspan="3">No HP</td>
                     <td>
@@ -112,6 +105,7 @@
           </div>
           <!-- /.card -->
         </div>
+        
         @if(count($pengembalian->get()) == 0)
         <div class="col-md-6">
           <div class="card">
@@ -194,14 +188,6 @@
                         Pengembalian Ditolak  
                       @endif
                       
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="3">Hari / Tanggal</td>
-                    <td>
-                      {{
-                        date('l / m-d-Y', strtotime($pengembalian->first()->created_at))
-                      }}
                     </td>
                   </tr>
                   <tr>

@@ -8,6 +8,7 @@ use App\Models\Attendance;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Models\Transaksi;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -41,8 +42,8 @@ class PeminjamanController extends Controller
             $transaksi = Transaksi::insertGetId([
                 'user_id' => $request->user_id,
                 'status_pinjam' => 'loan_pending',
-                'created_at' => $request->created_at,
-                'updated_at' => $request->created_at,
+                'dari_tanggal' => $request->dari_tanggal,
+                'sampai_tanggal' => $request->sampai_tanggal,
             ]);
             foreach($request->alat_id as $key => $al)
             {
@@ -52,6 +53,7 @@ class PeminjamanController extends Controller
                         'alat_id' => $al,
                         'jumlah' => $request->jumlah[$key],
                         'keterangan' => $request->keterangan[$key],
+                        'created_at' => $request->dari_tanggal,
                     ]);
                 }
             }
@@ -116,15 +118,16 @@ class PeminjamanController extends Controller
         $buktiBayar->move($path, $namePhoto);
 
         $transaksi->update(['bukti_bayar' => $namePhoto]);
-        
-        $alatID = Peminjaman::where('transaksi_id', $transaksi->id)->select('alat_id')->get()->toArray();
-        $cekStok = Alat::whereIn('id',array_column($alatID, 'alat_id'))->get();
-        foreach($cekStok as $a)
-        {
-            foreach($peminjaman as $pem){
-                if($a->stok < $pem->jumlah)
-                {
-                    return redirect()->back()->with('alert','stok alat '. $a->nama. ' tidak mencukupi');
+        if($transaksi->keterangan_pembayaran == null){
+            $alatID = Peminjaman::where('transaksi_id', $transaksi->id)->select('alat_id')->get()->toArray();
+            $cekStok = Alat::whereIn('id',array_column($alatID, 'alat_id'))->get();
+            foreach($cekStok as $a)
+            {
+                foreach($peminjaman as $pem){
+                    if($a->stok < $pem->jumlah)
+                    {
+                        return redirect()->back()->with('alert','stok alat '. $a->nama. ' tidak mencukupi');
+                    }
                 }
             }
         }
@@ -135,5 +138,14 @@ class PeminjamanController extends Controller
         }
 
         return redirect()->back()->with('success','Bukti pembayaran berhasil dikirim');
+    }
+    public function print_individu(Request $request)
+    {
+        $transaksi = Transaksi::find($request->id);
+        $peminjaman = Peminjaman::where('transaksi_id',$request->id)->get();
+        $pengembalian = Pengembalian::where('transaksi_id',$request->id)->get();
+        $tipe = $request->tipe;
+        $pdf = PDF::loadview('user.transaksi.cetak',compact('transaksi','peminjaman','pengembalian','tipe'));
+        return $pdf->stream();
     }
 }

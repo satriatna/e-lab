@@ -38,7 +38,6 @@
                 </div>
                 <div class="div">
                     <a href="#" data-target="#pinjam" data-toggle="modal" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                    <a href="#" data-target="#print" data-toggle="modal" class="btn btn-success"><i class="fas fa-print"></i></a>
                 </div>
             </div>
             </div>
@@ -54,12 +53,19 @@
                             Jumlah Alat Dipinjam
                         </th>
                         <th style="width: 20%">
+                            Dari Tanggal
+                        </th>
+                        <th style="width: 20%">
+                            Sampai Tanggal
+                        </th>
+                        <th style="width: 20%">
                             Status Peminjaman
                         </th>
                         <th style="width: 20%">
                             Status Pengembalian
                         </th>
                         <th>Status Pembayaran</th>
+                        <th>Konfirmasi Pembayaran</th>
                         <th style="width: 20%">
                         </th>
                     </tr>
@@ -69,6 +75,8 @@
                         <tr>
                             <td>{{++$key}}</td>
                             <td>{{$transaksi->peminjaman()->count()}}</td>
+                            <td>{{$transaksi->dari_tanggal}}</td>
+                            <td>{{$transaksi->sampai_tanggal}}</td>
                             <td>
                             @if($transaksi->status_pinjam == 'loan_pending')
                                 Peminjaman Diproses
@@ -89,15 +97,6 @@
                                 @endif
                             </td>
                             <td class="project-actions text-right">
-                                <div class="d-flex d-inline">
-                                    <a class="btn btn-primary btn-sm" href="{{route('user.peminjaman.show', $transaksi->id)}}">
-                                        <i class="fas fa-eye">
-                                        </i>
-                                    </a>
-                                    <a href="{{route('user.peminjaman.delete', $transaksi->id)}}" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
-                                </div>
-                            </td>
-                            <td class="project-actions text-right">
                                 <div class="d-flex d-inline justify-content-center align-items-center">
                                     @if($transaksi->status_pinjam == 'loan_approved')
                                         @if($transaksi->bukti_bayar != null)
@@ -108,6 +107,23 @@
                                     @else
                                         Status Peminjaman Tidak Mendukung
                                     @endif
+                                </div>
+                            </td>
+                            <td>
+                                @if($transaksi->keterangan_pembayaran)
+                                {{$transaksi->keterangan_pembayaran}}
+                                @else
+                                -
+                                @endif
+                            </td>
+                            <td class="project-actions text-right">
+                                <div class="d-flex d-inline">
+                                    <a class="btn btn-primary btn-sm" href="{{route('user.peminjaman.show', $transaksi->id)}}">
+                                        <i class="fas fa-eye">
+                                        </i>
+                                    </a>
+                                    <a href="{{route('user.peminjaman.delete', $transaksi->id)}}" onclick="return confirm('Apa Anda yakin ?');" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>                    
+                                    <a href="#" data-toggle="modal" data-id="{{$transaksi->id}}" data-target="#printIndividu" class="btn btn-success ml-1"><i class="fas fa-print"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -121,7 +137,42 @@
     </section>
 </div>
 
-
+<div class="modal fade" id="printIndividu" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('user.peminjaman.print-individu') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span>Print</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="tipe">Tipe</label>
+                        <select name="tipe" id="tipe" class="custom-select" required>
+                            <option value="">~ Pilih ~</option>
+                            <option value="pinjam">Peminjaman</option>
+                            <option value="kembali">Pengembalian</option>
+                        </select>
+                        @error('tipe')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="uploadBuktiBayar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -206,8 +257,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="created_at">Hari / Tanggal</label>
-                        <input type="datetime-local" class="form-control" id="created_at" name="created_at" required>
+                        <label for="dari_tanggal">Dari Tanggal</label>
+                        <input type="date" class="form-control" id="dari_tanggal" name="dari_tanggal" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sampai_tanggal">Sampai Tanggal</label>
+                        <input type="date" class="form-control" id="sampai_tanggal" name="sampai_tanggal" required>
                     </div>
                     <div class="form-group">
                         <label for="instansi">Instansi</label>
@@ -312,6 +367,11 @@
         $(".clonedInput").remove();
         $(".col-4").remove();
         });
+    });
+    
+    $('#printIndividu').on('show.bs.modal', (e) => {
+        var id = $(e.relatedTarget).data('id');
+        $('#printIndividu').find('input[name="id"]').val(id);
     });
 </script>
 @endpush
