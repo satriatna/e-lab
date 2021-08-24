@@ -1,9 +1,9 @@
 @extends('layouts.main')
 @section('content')
 <style>
-/* .hilang{
+.hilang{
   display: none;
-} */
+}
 </style>
 <div class="content-header">
     <div class="container-fluid">
