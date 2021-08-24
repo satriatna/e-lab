@@ -272,13 +272,14 @@
                         <label for="nama">Guru Pembimbing</label>
                         <input type="text" disabled class="form-control" id="nama" name="nama" value="{{Auth::guard(session()->get('role'))->user()->nama}}" required>
                     </div>
-                </div>
-                <div class="modal-footer">
-                <span class="text-bold">
-                Batas waktu pengembalian alat yaitu 1 minggu setelah alat di pinjam. <br>
-                Jika melebihi waktu yang ditentukan maka akan dikenakan denda Rp 5.000 per alat.
-                Alat dapat di ambil di laboratorium kimia SMA N 1 Gadingrejo.
-                </span>
+                    <hr>
+                    
+                    <span class="text-bold">
+                        <p>Maksimal peminjaman 1 minggu. ( Anda tidak dapat meminjam lebih dari 1 minggu )</p>
+                        <p>Batas waktu pengembalian alat yaitu sesuai rentan waktu saat Anda melakukan peminjaman</p>
+                        <p>Jika melebihi rentan waktu yang ditentukan maka Anda akan dikenakan denda Rp 2.000 per hari</p>
+                        <p>Alat dapat di ambil di laboratorium kimia SMA N 1 Gadingrejo</p>
+                    </span>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>

@@ -1,9 +1,9 @@
 @extends('layouts.main')
 @section('content')
 <style>
-.hilang{
+/* .hilang{
   display: none;
-}
+} */
 </style>
 <div class="content-header">
     <div class="container-fluid">
@@ -70,7 +70,24 @@
                       @endif
                     </td>
                   </tr>
-               
+                  <tr>
+                      <td colspan="3">Dari Tanggal</td>
+                      <td>
+                        {{ $transaksi->dari_tanggal  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Sampai Tanggal</td>
+                      <td>
+                        {{ $transaksi->sampai_tanggal  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Denda</td>
+                      <td>
+                        {{ $transaksi->denda ?? '-'  }}
+                      </td>
+                  </tr>
                   <tr>
                     <td colspan="3">No HP</td>
                     <td>
@@ -105,49 +122,80 @@
           </div>
           <!-- /.card -->
         </div>
-        
         @if(count($pengembalian->get()) == 0)
+        @if(isset($adminPinjam->first()->admin->nama) !=  false)
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
               <a href="#" id="kembalikan">Kembalikan Alat</a> <br>
             </div>
             <div class="card-body hilang">
-              <table class="table">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nama Alat</th>
-                  <th>Jumlah</th>
-                  <th>Keterangan</th>
-                </tr>
-                </thead>
-                  <form action="{{route('user.pengembalian.store')}}" method="POST">
-                    @csrf
-                <tbody>
-                  @foreach($peminjaman->get() as $key => $pinjamKembali)
+            <div class="table-responsive">
+                <table class="table">
+                  <thead>
                   <tr>
-                    <td>{{++$key}}</td>
-                    <td>{{$pinjamKembali->alat->nama}} <input type="hidden" name="alat_id[]" value="{{$pinjamKembali->alat_id}}"> </td>
-                    <td>
-                      <input type="number" name="jumlah[]" class="form-control" required>
-                    </td>
-                    <td>
-                      <textarea type="text" name="keterangan[]" rows="1" class="form-control" required></textarea>
+                    <th>#</th>
+                    <th>Nama Alat</th>
+                    <th>Jumlah</th>
+                    <th>Keterangan</th>
+                  </tr>
+                  </thead>
+                    <form action="{{route('user.pengembalian.store')}}" method="POST">
+                      @csrf
+                  <tbody>
+                    @foreach($peminjaman->get() as $key => $pinjamKembali)
+                    <tr>
+                      <td>{{++$key}}</td>
+                      <td>{{$pinjamKembali->alat->nama}} <input type="hidden" name="alat_id[]" value="{{$pinjamKembali->alat_id}}"> </td>
+                      <td>
+                        <input type="number" name="jumlah[]" class="form-control" required>
+                      </td>
+                      <td>
+                        <textarea type="text" name="keterangan[]" rows="1" class="form-control" required></textarea>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                  <tr>  
+                    <th>Lama Pinjam</th>
+                    <th>:</th>
+                    <td> 
+                      {{ $lamaPinjam . ' Hari' }}  </strong> 
                     </td>
                   </tr>
-                  @endforeach
-                </tbody>
-              </table>
-                  <input type="hidden" name="transaksi_id" value="{{$transaksi->id}}">
-                  <button class="btn btn-primary">Simpan</button>
-                </form>
+                  @if($selisihTanggal > 0)
+                  <tr>  
+                      <th>Denda</th>
+                      <th>:</th>
+                      <td> 
+                        <span class="totalDenda">{{ $selisihTanggal * 2000 }}</span> <strong>  {{ 'Telat ' . $selisihTanggal . ' Hari' }}  </strong> 
+                      </td>
+                    </tr>
+                  <tr>
+                    <th>Bayar Denda</th>
+                    <th>:</th>
+                    <td><input type="number" name="denda" class="denda" value="" class="form-control"></td>
+                  </tr>
+                  @else
+                  <tr>
+                    <th>Denda</th>
+                    <th>:</th>
+                    <td> 0 </td>
+                  </tr>
+                  @endif
+                </table>
+                <hr>
+                    <input type="hidden" name="transaksi_id" value="{{$transaksi->id}}">
+                    <button class="btn btn-primary simpan" disabled>Simpan</button>
+                  </form>
+              </div>
             </div>
             <div class="card-footer">
               <span class="text-danger">Apabila alat yang dipinjam hilang atau rusak, maka harus di ganti dengan yang baru.</span>
             </div>
           </div>
         </div>
+        @endif
         @else
         <div class="col-md-6">
           <div class="card card-primary">
@@ -190,6 +238,25 @@
                       
                     </td>
                   </tr>
+                  
+                  <tr>
+                      <td colspan="3">Dari Tanggal</td>
+                      <td>
+                        {{ $pengembalian->first()->transaksi->dari_tanggal  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Sampai Tanggal</td>
+                      <td>
+                        {{ $pengembalian->first()->transaksi->sampai_tanggal  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Denda</td>
+                      <td>
+                        {{ $pengembalian->first()->transaksi->denda ?? '-'  }}
+                      </td>
+                  </tr>
                   <tr>
                     <td colspan="3">No HP</td>
                     <td>
@@ -231,5 +298,14 @@
   $("#kembalikan").click(function(){
       $(".hilang").show();
   });
+  $('.denda').keyup(function(){
+    var totalDenda = $('.totalDenda').text(); 
+    var denda = $('.denda').val();
+    if(parseInt(denda) == parseInt(totalDenda)){
+      $('.simpan').prop("disabled", false);
+    }else{
+      $('.simpan').prop("disabled", true);
+    }
+  })
   </script>
 @endpush

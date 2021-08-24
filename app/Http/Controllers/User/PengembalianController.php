@@ -14,11 +14,13 @@ class PengembalianController extends Controller
 {
     public function store(Request $request)
     {
-        $alat = Alat::whereIn('id',$request->alat_id)->get();
+        $alat = Alat::whereIn('id', $request->alat_id)->get();
         $transaksi = Transaksi::find($request->transaksi_id);
-        $transaksi->update(['status' => 'return_pending']);
-        foreach($alat as $key => $al)
-        {
+        $transaksi->update([
+            'status' => 'return_pending',
+            'denda' => $request->denda
+        ]);
+        foreach ($alat as $key => $al) {
             Pengembalian::create([
                 'transaksi_id' => $request->transaksi_id,
                 'alat_id' => $al->id,
@@ -27,6 +29,6 @@ class PengembalianController extends Controller
                 'created_at' => $transaksi->dari_tanggal,
             ]);
         }
-        return redirect()->back()->with('success','Berhasil mengembalikan alat');
+        return redirect()->back()->with('success', 'Berhasil mengembalikan alat');
     }
 }
