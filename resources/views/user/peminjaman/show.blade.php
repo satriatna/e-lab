@@ -89,6 +89,12 @@
                       </td>
                   </tr>
                   <tr>
+                      <td colspan="3">Tanggal Dikembalikan</td>
+                      <td>
+                        {{ $transaksi->tanggal_dikembalikan ?? '-'  }}
+                      </td>
+                  </tr>
+                  <tr>
                     <td colspan="3">No HP</td>
                     <td>
                       {{ $adminPinjam->first()->transaksi->user->guru_pembimbing  }}
@@ -125,7 +131,7 @@
         
         @if(count($pengembalian->get()) == 0)
         
-        @if($adminPinjam->transaksi->status_pinjam == 'loan_dismiss')
+        @if($adminPinjam->transaksi->status_pinjam == 'loan_dismiss' || $adminPinjam->transaksi->status_pinjam == 'loan_pending')
         @else
           @if(isset($adminPinjam->first()->admin->nama) !=  false)
           <div class="col-md-6">
@@ -187,11 +193,18 @@
                       <td> 0 </td>
                     </tr>
                     @endif
+                    
+                    <tr>
+                      <th>Tanggal Pengembalian</th>
+                      <th>:</th>
+                      <td> <input type="date" name="tanggal_dikembalikan" class="form-control" required> </td>
+                    </tr>
                   </table>
                   <hr>
                       <input type="hidden" name="transaksi_id" value="{{$transaksi->id}}">
                       <button class="btn btn-primary simpan">Simpan</button>
                     </form>
+                    <hr>
                 </div>
               </div>
               <div class="card-footer">
@@ -247,19 +260,25 @@
                   <tr>
                       <td colspan="3">Dari Tanggal</td>
                       <td>
-                        {{ $pengembalian->first()->transaksi->dari_tanggal  }}
+                        {{ $transaksi->dari_tanggal  }}
                       </td>
                   </tr>
                   <tr>
                       <td colspan="3">Sampai Tanggal</td>
                       <td>
-                        {{ $pengembalian->first()->transaksi->sampai_tanggal  }}
+                        {{ $transaksi->sampai_tanggal  }}
                       </td>
                   </tr>
                   <tr>
                       <td colspan="3">Denda</td>
                       <td>
-                        {{ $pengembalian->first()->transaksi->denda ?? '-'  }}
+                        {{ $transaksi->denda ?? '-'  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Tanggal Dikembalikan</td>
+                      <td>
+                        {{ $transaksi->tanggal_dikembalikan ?? '-'  }}
                       </td>
                   </tr>
                   <tr>

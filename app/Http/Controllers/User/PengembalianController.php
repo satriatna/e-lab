@@ -18,7 +18,8 @@ class PengembalianController extends Controller
         $transaksi = Transaksi::find($request->transaksi_id);
         $transaksi->update([
             'status' => 'return_pending',
-            'denda' => $request->denda
+            'denda' => $request->denda,
+            'tanggal_dikembalikan' => $request->tanggal_dikembalikan
         ]);
         foreach ($alat as $key => $al) {
             Pengembalian::create([

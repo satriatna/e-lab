@@ -23,6 +23,7 @@ class CreateTransaksiTable extends Migration
             $table->string('bukti_bayar')->nullable();
             $table->date('dari_tanggal')->nullable();
             $table->date('sampai_tanggal')->nullable();
+            $table->date('tanggal_dikembalikan')->nullable();
             $table->string('denda')->nullable();
             $table->string('keterangan_pembayaran')->nullable();
             $table->timestamps();
