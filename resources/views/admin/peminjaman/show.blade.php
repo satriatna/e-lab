@@ -184,7 +184,30 @@
                       
                     </td>
                   </tr>
-                
+                  <tr>
+                      <td colspan="3">Dari Tanggal</td>
+                      <td>
+                        {{ $transaksi->dari_tanggal  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Sampai Tanggal</td>
+                      <td>
+                        {{ $transaksi->sampai_tanggal  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Denda</td>
+                      <td>
+                        {{ $transaksi->denda ?? '-'  }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="3">Tanggal Dikembalikan</td>
+                      <td>
+                        {{ $transaksi->tanggal_dikembalikan ?? '-'  }}
+                      </td>
+                  </tr>
                   <tr>
                     <td colspan="3">No HP</td>
                     <td>

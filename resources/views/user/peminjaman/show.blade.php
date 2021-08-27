@@ -83,12 +83,6 @@
                       </td>
                   </tr>
                   <tr>
-                      <td colspan="3">Denda</td>
-                      <td>
-                        {{ $transaksi->denda ?? '-'  }}
-                      </td>
-                  </tr>
-                  <tr>
                       <td colspan="3">Tanggal Dikembalikan</td>
                       <td>
                         {{ $transaksi->tanggal_dikembalikan ?? '-'  }}
@@ -179,13 +173,9 @@
                         <th>:</th>
                         <td> 
                           <span class="totalDenda">{{ $selisihTanggal * 2000 }}</span> <strong>  {{ 'Telat ' . $selisihTanggal . ' Hari' }}  </strong> 
+                          <input type="hidden" name="denda" class="denda" value="{{ $selisihTanggal * 2000 }}" class="form-control" required>
                         </td>
                       </tr>
-                    <tr>
-                      <th>Bayar Denda</th>
-                      <th>:</th>
-                      <td><input type="number" name="denda" class="denda" value="" class="form-control" required></td>
-                    </tr>
                     @else
                     <tr>
                       <th>Denda</th>
@@ -317,19 +307,12 @@
     </section>
 </div>
 @endsection
+
+
 @push('scripts')
 <script>
   $("#kembalikan").click(function(){
       $(".hilang").show();
   });
-  $('.denda').keyup(function(){
-    var totalDenda = $('.totalDenda').text(); 
-    var denda = $('.denda').val();
-    if(parseInt(denda) == parseInt(totalDenda)){
-      $('.simpan').prop("disabled", false);
-    }else{
-      $('.simpan').prop("disabled", true);
-    }
-  })
   </script>
 @endpush
